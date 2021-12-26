@@ -1,0 +1,45 @@
+enabled: true
+name: "&aValuables"
+icon: DIAMOND
+items:
+  '1':
+    material: IRON_INGOT
+    price: 100
+    sell-price: 35
+  '2':
+    material: GOLD_INGOT
+    price: 105
+    sell-price: 37
+  '3':
+    material: COAL
+    price: 60
+    sell-price: 15
+  '4':
+    material: REDSTONE
+    price: 70
+    sell-price: 25
+  '5':
+    material: LAPIS_LAZULI
+    price: 70
+    sell-price: 25
+  '6':
+    material: EMERALD
+    price: 180
+    sell-price: 100
+  '7':
+    material: DIAMOND
+    price: 200
+    sell-price: 110
+  '8':
+    material: COPPER_INGOT
+    price: 110
+    sell-price: 39
+  '9':
+    material: QUARTZ
+    price: 115
+    sell-price: 45
+  '10':
+    material: ANCIENT_DEBRIS
+    price: 350
+    sell-price: 190
+

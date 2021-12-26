@@ -1,0 +1,28 @@
+icon-material: DIAMOND_SWORD
+icon-name: "&cMonster Killer"
+scoreboard-display: "&cMonster Killer"
+
+description:
+  - "&7Kill Monsters to achieve a higher level."
+  - "&7The higher your level, the better perks you get!"
+  - "&7Below is a list of perks"
+  - "&a- Double XP"
+  - "&a- Double Damage on monsters"
+  - "&a- Chance to receive bonus coins"
+  - "&bLevel: &7{level}"
+  - "&bProgress: &7 {xp}&c/&7{xptogo}"
+
+
+rewards:
+  '1':
+    entity: ZOMBIE
+    exp: 10
+  '2':
+    entity: SKELETON
+    exp: 8
+  '3':
+    entity: CREEPER
+    exp: 15
+  '4':
+    entity: ENDERMAN
+    exp: 30

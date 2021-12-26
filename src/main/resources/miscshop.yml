@@ -1,0 +1,40 @@
+enabled: true
+name: "&aMisc"
+icon: LAVA_BUCKET
+items:
+  '1':
+    material: LAVA_BUCKET
+    price: 35
+    sell-price: 12
+  '2':
+    material: WATER_BUCKET
+    price: 28
+    sell-price: 10
+  '3':
+    material: EXPERIENCE_BOTTLE
+    price: 50
+    sell-price: 35
+  '4':
+    material: FIREWORK_ROCKET
+    price: 14
+    sell-price: 1
+  '5':
+    material: GUNPOWDER
+    price: 54
+    sell-price: 26
+  '6':
+    material: ITEM_FRAME
+    price: 15
+    sell-price: 2
+  '7':
+    material: SLIME_BALL
+    price: 25
+    sell-price: 8
+  '8':
+    material: MILK_BUCKET
+    price: 32
+    sell-price: 5
+  '9':
+    material: ENDER_PEARL
+    price: 65
+    sell-price: 40

@@ -1,0 +1,43 @@
+icon-material: DIAMOND_AXE
+icon-name: "&cLumberjack"
+scoreboard-display: "&cLumberjack"
+description:
+  - "&7chop trees to achieve a higher level."
+  - "&7The higher your level, the better perks you get!"
+  - "&7Below is a list of perks"
+  - "&a- Double XP"
+  - "&a- Double Drops"
+  - "&bLevel: &7{level}"
+  - "&bProgress: &7 {xp}&c/&7{xptogo}"
+
+rewards:
+  '1':
+    material: ACACIA_WOOD
+    exp: 3
+  '2':
+    material: OAK_WOOD
+    exp: 3
+  '3':
+    material: JUNGLE_WOOD
+    exp: 3
+  '4':
+    material: BIRCH_WOOD
+    exp: 3
+  '5':
+    material: SPRUCE_WOOD
+    exp: 3
+  '6':
+    material: ACACIA_LOG
+    exp: 3
+  '7':
+    material: OAK_LOG
+    exp: 3
+  '8':
+    material: JUNGLE_LOG
+    exp: 3
+  '9':
+    material: BIRCH_LOG
+    exp: 3
+  '10':
+    material: SPRUCE_LOG
+    exp: 3

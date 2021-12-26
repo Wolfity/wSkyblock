@@ -1,0 +1,31 @@
+name: "&4Magic Market"
+icon-material: "ENCHANTING_TABLE"
+icon-name: "&6Magic Market"
+items: # Make sure the material is a supported item (Check the "customenchants.yml)")
+  '1':
+    material: IRON_BOOTS
+    name: "&bSpeedy Boots"
+    price: 51256
+    custom-enchants:
+      '1':
+        type: SPEED
+        level: 1
+  '2':
+    material: DIAMOND_PICKAXE
+    name: "&cMagic Pickaxe"
+    price: 100000
+    custom-enchants:
+      '1':
+        type: TELEKINESIS
+        level: 1
+  '3':
+    material: GOLDEN_AXE
+    name: "&6Timber Axe"
+    price: 75000
+    custom-enchants:
+      '1':
+        type: TELEKINESIS
+        level: 1
+      '2':
+        type: TIMBER
+        level: 1

@@ -1,0 +1,38 @@
+enabled: true
+name: "&aBlocks"
+icon: GRASS_BLOCK
+items:
+  '1':
+    material: COBBLESTONE
+    price: 10
+    sell-price: 4
+  '2':
+    material: STONE
+    price: 8
+    sell-price: 3
+  '3':
+    material: OAK_WOOD
+    price: 5
+    sell-price: 1
+  '4':
+    material: OAK_LOG
+    price: 14
+    sell-price: 6
+  '5':
+    material: SPRUCE_WOOD
+    price: 15
+    sell-price: 7
+  '6':
+    material: SPRUCE_LOG
+    price: 20
+    sell-price: 9
+  '7':
+    material: BRICK
+    price: 25
+    sell-price: 8
+  '8':
+    material: SMOOTH_STONE
+    price: 32
+    sell-price: 6
+
+

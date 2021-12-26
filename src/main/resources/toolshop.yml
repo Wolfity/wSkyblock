@@ -1,0 +1,40 @@
+enabled: true
+name: "&aTools"
+icon: DIAMOND_PICKAXE
+items:
+  '1':
+    material: STONE_AXE
+    price: 20
+    sell-price: 8
+  '2':
+    material: STONE_SHOVEL
+    price: 20
+    sell-price: 8
+  '3':
+    material: STONE_PICKAXE
+    price: 40
+    sell-price: 16
+  '4':
+    material: IRON_AXE
+    price: 40
+    sell-price: 10
+  '5':
+    material: IRON_SHOVEL
+    price: 40
+    sell-price: 10
+  '6':
+    material: IRON_PICKAXE
+    price: 80
+    sell-price: 20
+  '7':
+    material: DIAMOND_AXE
+    price: 150
+    sell-price: 40
+  '8':
+    material: DIAMOND_SHOVEL
+    price: 150
+    sell-price: 40
+  '9':
+    material: DIAMOND_PICKAXE
+    price: 300
+    sell-price: 80

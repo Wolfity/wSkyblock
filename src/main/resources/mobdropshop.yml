@@ -1,0 +1,44 @@
+enabled: true
+name: "&aMob Drops"
+icon: ROTTEN_FLESH
+items:
+  '1':
+    material: ROTTEN_FLESH
+    price: 7
+    sell-price: 1
+  '2':
+    material: STRING
+    price: 4
+    sell-price: 1
+  '3':
+    material: BONE
+    price: 50
+    sell-price: 21
+  '4':
+    material: BLAZE_ROD
+    price: 67
+    sell-price: 35
+  '5':
+    material: GUNPOWDER
+    price: 54
+    sell-price: 23
+  '6':
+    material: LEATHER
+    price: 15
+    sell-price: 2
+  '7':
+    material: SLIME_BALL
+    price: 25
+    sell-price: 5
+  '8':
+    material: PRISMARINE_SHARD
+    price: 25
+    sell-price: 9
+  '9':
+    material: FEATHER
+    price: 7
+    sell-price: 3
+  '10':
+    material: MAGMA_CREAM
+    price: 45
+    sell-price: 23

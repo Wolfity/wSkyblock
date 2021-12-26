@@ -1,2 +1,2 @@
 # wSkyblock
-a Skyblock Game
+a Skyblock game

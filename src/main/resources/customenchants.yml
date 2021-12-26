@@ -1,0 +1,25 @@
+# List of supported target types
+# BOOTS, LEGGINGS, CHESTPLATE, HELMET, ALL_ARMOR, BOW, SWORD, AXE, PICKAXE, SHOVEL, ALL_TOOLS,
+enchants:
+  speed: # Do not change this key! If you don't want this enchant, simply change enabled to false.
+    enabled: true
+    name: speed
+    display: "&bSpeed"
+    target: BOOTS
+    max-level: 2
+  telekinesis:
+    enabled: true
+    name: telekinesis
+    display: "&bTelekinesis"
+    target: ALL_TOOLS
+    max-level: 1 # No point in a higher max level, since it'll do the exact same thing (100% rate of putting items in your inventory upon mining)
+  timber:
+    enabled: true
+    name: timber
+    display: "&bTimber"
+    target: AXE
+    max-level: 3
+
+
+
+
