@@ -14,10 +14,12 @@ import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.session.ClipboardHolder;
 import me.wolf.wskyblock.SkyblockPlugin;
 import me.wolf.wskyblock.player.SkyblockPlayer;
+import me.wolf.wskyblock.utils.ItemUtils;
 import me.wolf.wskyblock.warps.Warp;
 import me.wolf.wskyblock.world.EmptyChunkGenerator;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.WorldCreator;
 
 import java.io.File;
@@ -66,11 +68,14 @@ public class IslandManager {
         island.setAcceptsVisitors(accepts);
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> island.setWarps(new ArrayList<>(plugin.getSqLiteManager().loadWarps(island))));
         islands.add(island);
+
+
     }
 
     // adding a warp to an island
     public void addWarp(final Island island, final Warp warp) {
         island.addWarp(warp);
+
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> plugin.getSqLiteManager().addWarp(island, warp));
     }
 

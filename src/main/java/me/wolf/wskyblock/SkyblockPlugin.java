@@ -89,7 +89,8 @@ public class SkyblockPlugin extends JavaPlugin {
                 new AuctionHouseCommand(this),
                 new MagicMarketCommand(this),
                 new GiveCoinsCommand(this),
-                new RemoveCoinsCommand(this)
+                new RemoveCoinsCommand(this),
+                new WarpCommand(this)
         ).forEach(this::registerCommand);
 
     }

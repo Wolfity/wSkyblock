@@ -40,9 +40,10 @@ public class IslandCommand extends BaseCommand {
             if (args[0].equalsIgnoreCase("addwarp")) {
                 if (island != null) {
                     // if a player isn't in the same world as their island, disallow it
-                    if (!Objects.equals(player.getLocation().getWorld(), island.getSpawn().getWorld()))
+                    if (!Objects.equals(player.getLocation().getWorld(), island.getSpawn().getWorld())) {
                         player.sendMessage("&cYou must be on your island!");
-                    if (doesWarpNotExist(island, name)) {
+
+                    } else if (doesWarpNotExist(island, name)) {
                         plugin.getIslandManager().addWarp(island, new Warp(player.getLocation(), name));
                         player.sendMessage("&aSuccessfully created the warp &2" + name);
 
