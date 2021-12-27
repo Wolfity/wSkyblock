@@ -22,7 +22,7 @@ public class WarpGUI extends SkyblockGUI {
                     Material.valueOf(plugin.getConfig().getString("warp-icon")),
                     Utils.colorize(plugin.getConfig().getString("warp-display") + warps.get(i).getName())), player -> {
                 player.teleport(warps.get(finalI).getLocation());
-                owner.sendMessage("&aWarping to: " + warps.get(finalI));
+                owner.sendMessage("&aWarping to: &2" + warps.get(finalI).getName());
             });
         }
 

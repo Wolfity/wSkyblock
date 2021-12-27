@@ -22,7 +22,9 @@ public class WarpCommand extends BaseCommand {
         final Island island = plugin.getIslandManager().getIslandByOwner(player);
 
         if (args.length == 0) {
-            new WarpGUI(plugin, player);
+            if (island == null) {
+                player.sendMessage("&cYou need an island in order to execute this command!");
+            } else new WarpGUI(plugin, player);
         }
 
         if (args.length == 1) {
