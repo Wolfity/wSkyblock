@@ -3,6 +3,7 @@ package me.wolf.wskyblock;
 import me.wolf.wskyblock.auctionhouse.AuctionManager;
 import me.wolf.wskyblock.commands.impl.*;
 import me.wolf.wskyblock.commands.impl.admin.GiveCoinsCommand;
+import me.wolf.wskyblock.commands.impl.admin.MobArenaCommand;
 import me.wolf.wskyblock.commands.impl.admin.RemoveCoinsCommand;
 import me.wolf.wskyblock.commands.impl.admin.SetHubCommand;
 import me.wolf.wskyblock.crafingrecipes.CustomCraftingRecipes;
@@ -12,6 +13,8 @@ import me.wolf.wskyblock.gui.GUIListener;
 import me.wolf.wskyblock.island.IslandManager;
 import me.wolf.wskyblock.listeners.*;
 import me.wolf.wskyblock.magicmarket.MagicMarketManager;
+import me.wolf.wskyblock.mobarena.MobArena;
+import me.wolf.wskyblock.mobarena.MobArenaManager;
 import me.wolf.wskyblock.player.PlayerManager;
 import me.wolf.wskyblock.player.SkyblockPlayer;
 import me.wolf.wskyblock.scoreboards.SkyblockScoreboard;
@@ -39,7 +42,7 @@ public class SkyblockPlugin extends JavaPlugin {
     private SkyblockScoreboard skyblockScoreboard;
     private SBEnchantManager sbEnchantManager;
     private MagicMarketManager magicMarketManager;
-    private CustomCraftingRecipes recipes;
+    private MobArenaManager mobArenaManager;
 
     @Override
     public void onEnable() {
@@ -90,7 +93,8 @@ public class SkyblockPlugin extends JavaPlugin {
                 new MagicMarketCommand(this),
                 new GiveCoinsCommand(this),
                 new RemoveCoinsCommand(this),
-                new WarpCommand(this)
+                new WarpCommand(this),
+                new MobArenaCommand(this)
         ).forEach(this::registerCommand);
 
     }
@@ -120,10 +124,13 @@ public class SkyblockPlugin extends JavaPlugin {
         this.sbEnchantManager = new SBEnchantManager();
         this.shopManager = new ShopManager(fileManager);
         this.magicMarketManager = new MagicMarketManager(this);
-        this.recipes = new CustomCraftingRecipes();
+        this.mobArenaManager = new MobArenaManager();
+        CustomCraftingRecipes recipes = new CustomCraftingRecipes();
+
 
         recipes.loadRecipes(this);
         sbEnchantManager.loadEnchants(fileManager.getCustomEnchantsConfig());
+        mobArenaManager.loadMobArenas(fileManager.getMobArenaConfig());
         magicMarketManager.setup(fileManager.getMagicMarket());
         auctionManager.loadAuctionedItems();
         shopManager.registerShops();
@@ -172,7 +179,7 @@ public class SkyblockPlugin extends JavaPlugin {
         return magicMarketManager;
     }
 
-    public CustomCraftingRecipes getRecipes() {
-        return recipes;
+    public MobArenaManager getMobArenaManager() {
+        return mobArenaManager;
     }
 }

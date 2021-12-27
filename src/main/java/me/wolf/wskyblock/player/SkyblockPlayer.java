@@ -77,7 +77,6 @@ public class SkyblockPlayer {
         return getBukkitPlayer().getLocation();
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

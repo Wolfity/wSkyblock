@@ -64,7 +64,7 @@ public class CustomEnchantListeners implements Listener {
     @EventHandler
     public void onTimber(BlockBreakEvent event) {
         final ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
-        if(item.getItemMeta() == null) return;
+        if (item.getItemMeta() == null) return;
 
         final SkyblockPlayer player = plugin.getPlayerManager().getSkyblockPlayer(event.getPlayer().getUniqueId());
         final Skill skill = plugin.getSkillManager().getSkillByNamePlayer(player, "lumberjack");
@@ -80,7 +80,7 @@ public class CustomEnchantListeners implements Listener {
                 for (final Block block : getConnectedBlock(event.getBlock()).stream().limit((long) limit * (long) level).collect(Collectors.toList())) {
                     event.getPlayer().getInventory().addItem(new ItemStack(block.getType()));
                     // adding skill experience for every "broken" block
-                    if(lumberJackRewards.getRewardsMap().containsKey(event.getBlock().getType())) {
+                    if (lumberJackRewards.getRewardsMap().containsKey(event.getBlock().getType())) {
                         plugin.getSkillManager().addExperience(player, skill, lumberJackRewards.getRewardsMap().get(event.getBlock().getType()));
                     }
                     block.setType(Material.AIR);

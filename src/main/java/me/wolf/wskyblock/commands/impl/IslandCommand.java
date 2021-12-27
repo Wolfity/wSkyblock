@@ -52,7 +52,7 @@ public class IslandCommand extends BaseCommand {
 
             } else if (args[0].equalsIgnoreCase("removewarp")) {
                 if (island != null) {
-                    if(!doesWarpNotExist(island, name)) {
+                    if (!doesWarpNotExist(island, name)) {
                         plugin.getIslandManager().removeWarp(island, name);
                         player.sendMessage("&aThe warp &2" + name + "&a was successfully removed!");
                     } else player.sendMessage("&cThis warp does not exist!");

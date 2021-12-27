@@ -49,7 +49,7 @@ public class AuctionHouseCommand extends BaseCommand {
                         plugin.getAuctionManager().addAuctionItem(new AuctionItem(skyblockPlayer.getOfflinePlayer(), price, player.getInventory().getItemInMainHand()));
                         player.getInventory().setItemInMainHand(null);
                         player.sendMessage(Utils.colorize("&aSuccessfully put your item on the auction house for &2" + price + " coins!"));
-                    }  else skyblockPlayer.sendMessage("&cYou can not sell Magic Items on the Auction House!");
+                    } else skyblockPlayer.sendMessage("&cYou can not sell Magic Items on the Auction House!");
                 }
             }
         }

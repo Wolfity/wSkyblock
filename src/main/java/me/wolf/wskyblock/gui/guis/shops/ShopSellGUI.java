@@ -27,7 +27,7 @@ public class ShopSellGUI extends SkyblockGUI {
         setItem(8, ItemUtils.createItem(Material.ARROW, "&a+64"), player -> setItem(4, updateSelection(64, item.getMaterial())));
 
         setItem(13, getBackIcon(), player -> {
-            new ShopMenuGUI(skyblockShop, owner, 1);
+            new ShopMenuGUI(skyblockShop, owner, 1, plugin);
             this.selection = 1;
         });
         // By clicking this they confirm that they want to sell these items

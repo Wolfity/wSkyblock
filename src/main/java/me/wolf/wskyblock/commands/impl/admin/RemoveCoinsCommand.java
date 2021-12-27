@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 public class RemoveCoinsCommand extends BaseCommand {
     private final SkyblockPlugin plugin;
+
     public RemoveCoinsCommand(final SkyblockPlugin plugin) {
         super("removecoins");
         this.plugin = plugin;
@@ -21,7 +22,7 @@ public class RemoveCoinsCommand extends BaseCommand {
 
         if (isAdmin()) {
             if (args.length == 2) {
-                if(Bukkit.getPlayerExact(args[0]) == null) player.sendMessage("&cInvalid User");
+                if (Bukkit.getPlayerExact(args[0]) == null) player.sendMessage("&cInvalid User");
                 final SkyblockPlayer target = plugin.getPlayerManager().getSkyblockPlayer(Bukkit.getPlayerExact(args[0]).getUniqueId()); // user is online
 
                 int amount = 0;

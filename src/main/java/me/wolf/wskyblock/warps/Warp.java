@@ -2,7 +2,6 @@ package me.wolf.wskyblock.warps;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 
 public class Warp {
 
@@ -21,16 +20,16 @@ public class Warp {
         return display;
     }
 
+    public void setDisplay(String display) {
+        this.display = display;
+    }
+
     public Material getIcon() {
         return icon;
     }
 
     public void setIcon(Material icon) {
         this.icon = icon;
-    }
-
-    public void setDisplay(String display) {
-        this.display = display;
     }
 
     public String getName() {

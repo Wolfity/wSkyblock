@@ -1,6 +1,6 @@
 enabled: true
-name: "&aMob Drops"
-icon: ROTTEN_FLESH
+name: "&bMob Drops"
+icon: ZOMBIE_HEAD
 items:
   '1':
     material: ROTTEN_FLESH

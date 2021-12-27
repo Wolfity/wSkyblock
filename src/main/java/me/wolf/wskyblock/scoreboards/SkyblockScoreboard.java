@@ -14,6 +14,7 @@ public class SkyblockScoreboard {
     final List<String> sbTitle = Arrays.asList("&e&lS&f&lk&e&ly&f&lb&e&ll&f&lo&e&lc&f&lk", "&f&lS&e&lk&f&ly&e&lb&f&ll&e&lo&f&lc&e&lk");
     private final SkyblockPlugin plugin;
     int timer = 2;
+
     public SkyblockScoreboard(final SkyblockPlugin plugin) {
         this.plugin = plugin;
     }

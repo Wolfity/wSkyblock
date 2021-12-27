@@ -60,16 +60,16 @@ public abstract class Skill implements Comparable<Skill> {
         return description;
     }
 
+    public void setDescription(String[] description) {
+        this.description = description;
+    }
+
     public ItemStack getIcon() {
         return icon;
     }
 
     public void setIcon(ItemStack icon) {
         this.icon = icon;
-    }
-
-    public void setDescription(String[] description) {
-        this.description = description;
     }
 
     public int getCurrentExp() {

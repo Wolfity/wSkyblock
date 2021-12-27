@@ -8,7 +8,6 @@ import me.wolf.wskyblock.island.Island;
 import me.wolf.wskyblock.player.SkyblockPlayer;
 import me.wolf.wskyblock.skills.Skill;
 import me.wolf.wskyblock.utils.ItemUtils;
-import me.wolf.wskyblock.utils.Utils;
 import me.wolf.wskyblock.warps.Warp;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -163,7 +162,6 @@ public class SQLiteManager {
         }
         return false;
     }
-
 
     public void setSkillPlayerName(final UUID uuid, final String playerName) {
         if (!doesSkillPlayerExist(uuid)) return;
@@ -551,7 +549,7 @@ public class SQLiteManager {
 
     public void removeWarp(final Island island, final String name) {
         try (final Connection connection = hikari.getConnection();
-             final PreparedStatement ps = connection.prepareStatement("DELETE FROM warps WHERE uuid ='" + island.getOwner().getUuid().toString() + "' AND name ='" +  name + "'")) {
+             final PreparedStatement ps = connection.prepareStatement("DELETE FROM warps WHERE uuid ='" + island.getOwner().getUuid().toString() + "' AND name ='" + name + "'")) {
             ps.executeUpdate();
 
         } catch (final SQLException e) {

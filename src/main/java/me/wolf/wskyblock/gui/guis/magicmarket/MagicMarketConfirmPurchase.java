@@ -48,7 +48,7 @@ public class MagicMarketConfirmPurchase extends SkyblockGUI {
         final PersistentDataContainer pdc = meta.getPersistentDataContainer();
         meta.setLore(item.getLore());
 
-        for(final SBEnchantment enchantment : item.getSbEnchantments()) {
+        for (final SBEnchantment enchantment : item.getSbEnchantments()) {
             final String key = enchantment.getName() + enchantment.getCurrentLevel();
             pdc.set(new NamespacedKey(plugin, enchantment.getName()), PersistentDataType.STRING, key);
             is.setItemMeta(meta);

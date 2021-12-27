@@ -6,7 +6,6 @@ import me.wolf.wskyblock.player.SkyblockPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import scala.Int;
 
 public class GiveCoinsCommand extends BaseCommand {
     private final SkyblockPlugin plugin;
@@ -24,7 +23,7 @@ public class GiveCoinsCommand extends BaseCommand {
         // /givecoins <target> <amt>
         if (isAdmin()) {
             if (args.length == 2) {
-                if(Bukkit.getPlayerExact(args[0]) == null) player.sendMessage("&cInvalid User");
+                if (Bukkit.getPlayerExact(args[0]) == null) player.sendMessage("&cInvalid User");
                 final SkyblockPlayer target = plugin.getPlayerManager().getSkyblockPlayer(Bukkit.getPlayerExact(args[0]).getUniqueId()); // user is online
 
                 int amount = 0;

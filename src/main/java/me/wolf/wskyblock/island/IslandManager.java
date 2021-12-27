@@ -14,12 +14,10 @@ import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.session.ClipboardHolder;
 import me.wolf.wskyblock.SkyblockPlugin;
 import me.wolf.wskyblock.player.SkyblockPlayer;
-import me.wolf.wskyblock.utils.ItemUtils;
 import me.wolf.wskyblock.warps.Warp;
 import me.wolf.wskyblock.world.EmptyChunkGenerator;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.WorldCreator;
 
 import java.io.File;

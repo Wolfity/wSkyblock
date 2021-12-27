@@ -42,7 +42,7 @@ public class MainGUI extends SkyblockGUI {
 
         setItem(24, ItemUtils.createItem(Material.DIAMOND, "&bShop"), player -> new ShopGUI(plugin, owner));
         setItem(31, ItemUtils.createItem(Material.ENDER_PEARL, "&bWarps"), player -> {
-            if(island == null) {
+            if (island == null) {
                 owner.sendMessage("&cYou need to create an island before using this!");
             } else new WarpGUI(plugin, owner);
         });

@@ -8,7 +8,8 @@ import org.bukkit.Bukkit;
 public class FileManager {
 
     private YamlConfig minerConfig, monsterKillerConfig, lumberjackConfig,
-            blockShopConfig, foodShopConfig, miscShopConfig, mobDropConfig, toolShopConfig, valuableConfig, customEnchantsConfig, magicMarket;
+            blockShopConfig, foodShopConfig, miscShopConfig, mobDropConfig,
+            toolShopConfig, valuableConfig, customEnchantsConfig, magicMarket, mobArenaConfig;
 
 
     public FileManager(final SkyblockPlugin plugin) {
@@ -24,6 +25,7 @@ public class FileManager {
             customEnchantsConfig = new YamlConfig("customenchants.yml", plugin);
             lumberjackConfig = new YamlConfig("lumberjack.yml", plugin);
             magicMarket = new YamlConfig("magicmarket.yml", plugin);
+            mobArenaConfig = new YamlConfig("mobarena.yml", plugin);
         } catch (final Exception e) {
             Bukkit.getLogger().info(Utils.colorize("&4Something went wrong while loading the yml files"));
             e.printStackTrace();
@@ -31,19 +33,6 @@ public class FileManager {
 
     }
 
-    public void reloadConfigs() {
-        minerConfig.reloadConfig();
-        monsterKillerConfig.reloadConfig();
-        lumberjackConfig.reloadConfig();
-        blockShopConfig.reloadConfig();
-        foodShopConfig.reloadConfig();
-        miscShopConfig.reloadConfig();
-        mobDropConfig.reloadConfig();
-        toolShopConfig.reloadConfig();
-        valuableConfig.reloadConfig();
-        customEnchantsConfig.reloadConfig();
-        magicMarket.reloadConfig();
-    }
 
     public YamlConfig getLumberjackConfig() {
         return lumberjackConfig;
@@ -87,5 +76,9 @@ public class FileManager {
 
     public YamlConfig getMagicMarket() {
         return magicMarket;
+    }
+
+    public YamlConfig getMobArenaConfig() {
+        return mobArenaConfig;
     }
 }

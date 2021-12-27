@@ -28,7 +28,7 @@ public final class Query {
 
     public static final String CREATE_WARPS_TABLE = "CREATE TABLE IF NOT EXISTS " +
             "warps (uuid VARCHAR(64) " +
-            "NOT NULL," +
+            "NOT NULL, " +
             "name, " +
             "world VARCHAR(8), " +
             "x double, " +
