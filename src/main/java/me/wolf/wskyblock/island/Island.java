@@ -35,6 +35,10 @@ public class Island {
         this.warps.add(warp);
     }
 
+    public void removeWarp(final Warp warp) {
+        this.warps.remove(warp);
+    }
+
     public SkyblockPlayer getOwner() {
         return owner;
     }

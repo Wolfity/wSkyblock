@@ -23,8 +23,8 @@ import org.bukkit.WorldCreator;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class IslandManager {
@@ -60,26 +60,30 @@ public class IslandManager {
     }
 
     // loading in the island of a specific player
-    public void loadIsland(final SkyblockPlayer owner, final String location, final List<Warp> warps, final boolean accepts) {
+    public void loadIsland(final SkyblockPlayer owner, final String location, final boolean accepts) {
         final Island island = new Island(owner);
         island.setSpawn(stringToLocation(location));
         island.setAcceptsVisitors(accepts);
-        island.setWarps(warps);
-
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> island.setWarps(new ArrayList<>(plugin.getSqLiteManager().loadWarps(island))));
         islands.add(island);
     }
 
-    public void deleteIsland(final Island island) {
-        this.islands.remove(island);
+    // adding a warp to an island
+    public void addWarp(final Island island, final Warp warp) {
+        island.addWarp(warp);
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> plugin.getSqLiteManager().addWarp(island, warp));
+    }
+
+    // remove a warp (by name)
+    public void removeWarp(final Island island, final String warpName) {
+
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> plugin.getSqLiteManager().removeWarp(island, warpName));
+        island.removeWarp(getWarpByName(island, warpName));
     }
 
     // getting an island by passing in the owner
     public Island getIslandByOwner(final SkyblockPlayer owner) {
         return islands.stream().filter(island -> island.getOwner().equals(owner)).findFirst().orElse(null);
-    }
-
-    public Set<Island> getIslands() {
-        return islands;
     }
 
     // preparing and pasting the schemetica from the default skyblock island
@@ -92,7 +96,7 @@ public class IslandManager {
             Clipboard clipboard = reader.read();
 
             try (EditSession editSession = WorldEdit.getInstance().newEditSession(new BukkitWorld(spawn.getWorld()))) {
-                Operation operation = new ClipboardHolder(clipboard)
+                final Operation operation = new ClipboardHolder(clipboard)
                         .createPaste(editSession)
                         .to(BlockVector3.at(spawn.getX(), spawn.getY(), spawn.getZ()))
                         .ignoreAirBlocks(false)
@@ -109,13 +113,17 @@ public class IslandManager {
 
     // converting a Location to a String
     private String spawnToString(final Location location) {
-        return location.getWorld().getName() + " " + location.getX() + " " + location.getY() + " " + location.getZ();
+        return location.getWorld().getName() + " " + Math.round(location.getX()) + " " + Math.round(location.getY()) + " " + Math.round(location.getZ());
     }
 
     // converting a string to a location
     private Location stringToLocation(final String loc) {
         final String[] locSplit = loc.split(" ");
         return new Location(Bukkit.getWorld(locSplit[0]), Double.parseDouble(locSplit[1]), Double.parseDouble(locSplit[2]), Double.parseDouble(locSplit[3]));
+    }
+
+    public Warp getWarpByName(final Island island, final String warpName) {
+        return island.getWarps().stream().filter(warp -> warp.getName().equalsIgnoreCase(warpName)).findFirst().orElse(null);
     }
 }
 

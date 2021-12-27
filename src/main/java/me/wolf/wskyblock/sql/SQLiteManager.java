@@ -8,6 +8,7 @@ import me.wolf.wskyblock.island.Island;
 import me.wolf.wskyblock.player.SkyblockPlayer;
 import me.wolf.wskyblock.skills.Skill;
 import me.wolf.wskyblock.utils.ItemUtils;
+import me.wolf.wskyblock.utils.Utils;
 import me.wolf.wskyblock.warps.Warp;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -73,8 +74,7 @@ public class SQLiteManager {
                 ps.setString(2, playerName);
                 ps.setString(3, "null"); // spawn
                 ps.setString(4, "null"); // visitors
-                ps.setInt(5, 0);
-
+                ps.setInt(5, 0); // coins
 
                 ps.executeUpdate();
 
@@ -98,9 +98,9 @@ public class SQLiteManager {
         this.setSpawn(uuid, this.getSpawn(uuid));
         this.setCoins(uuid, this.getCoins(uuid));
         final SkyblockPlayer owner = plugin.getPlayerManager().getSkyblockPlayer(uuid);
-        final List<Warp> warps = new ArrayList<>();
 
-        plugin.getIslandManager().loadIsland(owner, getSpawn(uuid), warps, getAcceptsVisitors(uuid));
+
+        plugin.getIslandManager().loadIsland(owner, getSpawn(uuid), getAcceptsVisitors(uuid));
         owner.setCoins(this.getCoins(uuid));
 
     }
@@ -207,6 +207,7 @@ public class SQLiteManager {
             statement.executeUpdate(Query.CREATE_ISLAND_TABLE);
             statement.executeUpdate(Query.CREATE_SKILLS_TABLE);
             statement.executeUpdate(Query.CREATE_AUCTION_TABLE);
+            statement.executeUpdate(Query.CREATE_WARPS_TABLE);
 
         } catch (final SQLException e) {
             e.printStackTrace();
@@ -301,6 +302,7 @@ public class SQLiteManager {
 
         return 0;
     }
+
 
     // Skills below
     public void setLumberjack(final UUID uuid, final String lumber) { // lvl xp expTillNext
@@ -402,19 +404,22 @@ public class SQLiteManager {
         final SkyblockPlayer owner = plugin.getPlayerManager().getSkyblockPlayer(uuid);
         final Island island = plugin.getIslandManager().getIslandByOwner(owner);
 
-        this.setSpawn(owner.getUuid(), this.getSpawn(owner.getUuid()));
-        this.setAcceptVisitors(owner.getUuid(), this.getAcceptsVisitors(owner.getUuid()));
-        this.setCoins(owner.getUuid(), this.getCoins(owner.getUuid()));
-
-        final String[] stringLoc = this.getSpawn(owner.getUuid()).split(" ");
+        this.setSpawn(uuid, this.getSpawn(uuid));
+        this.setAcceptVisitors(owner.getUuid(), this.getAcceptsVisitors(uuid));
+        this.setCoins(uuid, this.getCoins(uuid));
+        final String[] stringLoc = this.getSpawn(uuid).split(" ");
         final Location spawn = new Location(Bukkit.getWorld(stringLoc[0]),
                 Double.parseDouble(stringLoc[1]),
                 Double.parseDouble(stringLoc[2]),
                 Double.parseDouble(stringLoc[3]));
 
+        final List<Warp> warps = new ArrayList<>();
+
         island.setSpawn(spawn);
+        island.setWarps(warps);
         island.setAcceptsVisitors(this.getAcceptsVisitors(owner.getUuid()));
         owner.setCoins(this.getCoins(owner.getUuid()));
+
     }
 
     public void saveSkillData(final UUID uuid, final Skill skill, final String data) {
@@ -487,7 +492,7 @@ public class SQLiteManager {
              final PreparedStatement ps = connection.prepareStatement("SELECT item FROM auction WHERE itemid ='" + itemID.toString() + "'")) {
 
             final ResultSet results = ps.executeQuery();
-            
+
 
             return ItemUtils.serializeItemStack(results.getString(1));
 
@@ -525,5 +530,57 @@ public class SQLiteManager {
         }
     }
 
+    public void addWarp(final Island island, final Warp warp) {
+        try (final Connection connection = hikari.getConnection();
+             final PreparedStatement statement = connection.prepareStatement(Query.SET_WARPS)) {
+
+            statement.setString(1, island.getOwner().getUuid().toString());
+            statement.setString(2, warp.getName());
+            statement.setString(3, warp.getLocation().getWorld().getName());
+            statement.setInt(4, (int) warp.getLocation().getX());
+            statement.setInt(5, (int) warp.getLocation().getY());
+            statement.setInt(6, (int) warp.getLocation().getZ());
+
+
+            statement.executeUpdate();
+
+        } catch (final SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeWarp(final Island island, final String name) {
+        try (final Connection connection = hikari.getConnection();
+             final PreparedStatement ps = connection.prepareStatement("DELETE FROM warps WHERE uuid ='" + island.getOwner().getUuid().toString() + "' AND name ='" +  name + "'")) {
+            ps.executeUpdate();
+
+        } catch (final SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Set<Warp> loadWarps(final Island island) { // load data of an existing player
+        final Set<Warp> warps = new HashSet<>();
+        // auction table
+        try (final Connection connection = hikari.getConnection();
+             final PreparedStatement ps = connection.prepareStatement("SELECT name, world, x, y, z FROM warps WHERE uuid ='" + island.getOwner().getUuid() + "'")) {
+
+            final ResultSet results = ps.executeQuery();
+            while (results.next()) {
+                final String name = results.getString(1);
+                final Location warpLoc = new Location(Bukkit.getWorld(results.getString(2)),
+                        results.getDouble(3),
+                        results.getDouble(4),
+                        results.getDouble(5));
+
+                warps.add(new Warp(warpLoc, name));
+            }
+
+        } catch (final SQLException e) {
+            e.printStackTrace();
+        }
+
+        return warps;
+    }
 
 }
