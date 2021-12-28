@@ -122,7 +122,7 @@ public class SQLiteManager {
                 skill.setExperienceNextLevel(Double.parseDouble(lumberData[2]));
                 skill.setLevelCap(Integer.parseInt(lumberData[3]));
 
-            } else if (skill.getName().equalsIgnoreCase("monsterkiller")) {
+            } else if (skill.getName().equalsIgnoreCase("monster killer")) {
                 skill.setLevel(Integer.parseInt(monsterKillerData[0]));
                 skill.setCurrentExp(Integer.parseInt(monsterKillerData[1]));
                 skill.setExperienceNextLevel(Double.parseDouble(monsterKillerData[2]));

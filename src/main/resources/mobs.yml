@@ -1,0 +1,40 @@
+# This is the mob setting files for the mobs that spawn in the mob arenas
+mobs:
+  zombie:
+    enabled: true
+    damage: 2
+    health: 80
+    name: "&c&lSuper Zombie"
+    helmet: DIAMOND_HELMET
+    chestplate: none
+    leggings: IRON_LEGGINGS
+    boots: none
+    xp-reward: 100
+    speed: 0.3
+
+
+  skeleton:
+    enabled: true
+    damage: 5
+    health: 20
+    name: "&6Sniper"
+    helmet: GOLDEN_HELMET
+    chestplate: none
+    leggings: none
+    boots: none
+    xp-reward: 50
+    speed: 0.5
+
+  spider: # you can not put armor on a spider
+    enabled: true
+    damage: 5
+    health: 20
+    name: "&bSpeedy Spider"
+    helmet: none
+    chestplate: none
+    leggings: none
+    boots: none
+    xp-reward: 25
+    speed: 0.7
+
+

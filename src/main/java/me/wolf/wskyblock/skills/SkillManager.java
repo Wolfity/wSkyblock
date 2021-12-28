@@ -15,6 +15,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SkillManager {
 
@@ -60,7 +61,7 @@ public class SkillManager {
 
     // get the skill by a name, from a specific user (To track per user progress)
     public Skill getSkillByNamePlayer(final SkyblockPlayer player, final String name) {
-        return player.getSkills().stream().filter(skill -> skill.getName().equalsIgnoreCase(name)).collect(Utils.toSingleton());
+        return player.getSkills().stream().filter(skill -> skill.getName().equalsIgnoreCase(name)).collect(Collectors.toList()).get(0);
     }
 
     public void cacheRewards() { // cache all the rewards from every skill
@@ -80,9 +81,8 @@ public class SkillManager {
             amount *= 2;
         }
         if (skill.getCurrentExp() + amount >= skill.getExperienceNextLevel()) { // check if they will level up
-            double difference = skill.getExperienceNextLevel() - skill.getCurrentExp() + amount; // if so, get the difference and add it to 0 (new level)
             skill.levelUp(); // then level them up and save it to the database
-            skill.setCurrentExp((int) difference);
+            skill.setCurrentExp(0);
             Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
                 plugin.getSqLiteManager().saveSkillData(player.getUuid(), skill, skill.getLevel() + " " + skill.getCurrentExp() + " " + skill.getExperienceNextLevel() + " " + skill.getLevelCap());
             });
@@ -91,16 +91,8 @@ public class SkillManager {
         skill.addExperience(amount); // add the actual XP to the skill
     }
 
-    public Set<Skill> getSkillsByUser(final SkyblockPlayer player) {
-        return player.getSkills();
-    }
-
     private void addSkills(final Skill... skills) {
         this.skills.addAll(Arrays.asList(skills));
-    }
-
-    private void removeSkill(final Skill skill) {
-        this.skills.remove(skill);
     }
 
     // for skills that need to break blocks

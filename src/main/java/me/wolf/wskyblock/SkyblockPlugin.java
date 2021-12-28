@@ -13,7 +13,6 @@ import me.wolf.wskyblock.gui.GUIListener;
 import me.wolf.wskyblock.island.IslandManager;
 import me.wolf.wskyblock.listeners.*;
 import me.wolf.wskyblock.magicmarket.MagicMarketManager;
-import me.wolf.wskyblock.mobarena.MobArena;
 import me.wolf.wskyblock.mobarena.MobArenaManager;
 import me.wolf.wskyblock.player.PlayerManager;
 import me.wolf.wskyblock.player.SkyblockPlayer;
@@ -22,9 +21,12 @@ import me.wolf.wskyblock.shops.ShopManager;
 import me.wolf.wskyblock.skills.Skill;
 import me.wolf.wskyblock.skills.SkillManager;
 import me.wolf.wskyblock.sql.SQLiteManager;
+import me.wolf.wskyblock.utils.Utils;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
+import org.bukkit.entity.Entity;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Field;
@@ -67,6 +69,16 @@ public class SkyblockPlugin extends JavaPlugin {
 
         }
         sqLiteManager.disconnect();
+
+        // clear all mobs in mob arenas
+        for(final World world : Bukkit.getWorlds()) {
+            for(final Entity entity : world.getEntities()) {
+                if(getMobArenaManager().getMobRewards().keySet().contains(Utils.colorize(entity.getName()))) {
+                    entity.remove();
+                }
+            }
+        }
+
     }
 
     private void registerListeners() {
@@ -77,7 +89,8 @@ public class SkyblockPlugin extends JavaPlugin {
                 new ShopInteractListener(this),
                 new AuctionHouseListener(this),
                 new MagicMarketListener(this),
-                new CustomEnchantListeners(this)
+                new CustomEnchantListeners(this),
+                new MobArenaListener(this)
         ).forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, this));
     }
 
@@ -124,13 +137,13 @@ public class SkyblockPlugin extends JavaPlugin {
         this.sbEnchantManager = new SBEnchantManager();
         this.shopManager = new ShopManager(fileManager);
         this.magicMarketManager = new MagicMarketManager(this);
-        this.mobArenaManager = new MobArenaManager();
+        this.mobArenaManager = new MobArenaManager(this);
         CustomCraftingRecipes recipes = new CustomCraftingRecipes();
 
 
         recipes.loadRecipes(this);
         sbEnchantManager.loadEnchants(fileManager.getCustomEnchantsConfig());
-        mobArenaManager.loadMobArenas(fileManager.getMobArenaConfig());
+        mobArenaManager.loadMobArenas();
         magicMarketManager.setup(fileManager.getMagicMarket());
         auctionManager.loadAuctionedItems();
         shopManager.registerShops();

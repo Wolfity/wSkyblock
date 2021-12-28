@@ -1,22 +1,18 @@
 package me.wolf.wskyblock.mobarena;
 
 import me.wolf.wskyblock.utils.Cuboid;
-import org.bukkit.entity.EntityType;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class MobArena {
 
-    private final Set<EntityType> mobs;
     private final String name;
     private Cuboid cuboid;
     private int maxMobs, spawnRoutine; // spawn routine refers to how often mobs are spawned
-
+    private int entityCount;
 
     public MobArena(final String name) {
         this.name = name;
-        this.mobs = new HashSet<>();
+        this.entityCount = 0;
+
     }
 
     public String getName() {
@@ -39,6 +35,18 @@ public class MobArena {
         this.spawnRoutine = spawnRoutine;
     }
 
+    public void increaseEntityCount() {
+        this.entityCount++;
+    }
+
+    public void decreaseEntityCount() {
+        this.entityCount--;
+    }
+
+    public int getEntityCount() {
+        return entityCount;
+    }
+
     public Cuboid getCuboid() {
         return cuboid;
     }
@@ -47,7 +55,8 @@ public class MobArena {
         this.cuboid = cuboid;
     }
 
-    public Set<EntityType> getMobs() {
-        return mobs;
+    public void decrementSpawnRoutine() {
+        this.spawnRoutine--;
     }
+
 }

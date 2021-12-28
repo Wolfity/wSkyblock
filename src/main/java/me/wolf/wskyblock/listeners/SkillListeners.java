@@ -73,8 +73,11 @@ public class SkillListeners implements Listener {
             plugin.getSkillManager().addExperience(player, monsterkiller, monsterKillerRewards.getRewardsMap().get(event.getEntity().getType()));
             if (monsterkiller.getLucky()) {
                 final int random = new Random().nextInt(100);
-                Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> plugin.getSqLiteManager().setCoins(player.getUuid(), player.getCoins() + random));
                 player.sendMessage("&aYou got lucky and received " + random + " coins!");
+                Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+                    plugin.getSqLiteManager().setCoins(player.getUuid(), player.getCoins() + random);
+                    plugin.getSqLiteManager().saveData(player.getUuid());
+                });
             }
         }
     }

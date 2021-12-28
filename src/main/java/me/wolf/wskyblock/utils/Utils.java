@@ -4,8 +4,6 @@ import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 public final class Utils {
 
@@ -30,18 +28,6 @@ public final class Utils {
             colorized[i] = ChatColor.translateAlternateColorCodes('&', messages[i]);
         }
         return colorized;
-    }
-
-    public static <T> Collector<T, ?, T> toSingleton() {
-        return Collectors.collectingAndThen(
-                Collectors.toList(),
-                list -> {
-                    if (list.size() != 1) {
-                        throw new IllegalStateException();
-                    }
-                    return list.get(0);
-                }
-        );
     }
 
 }
