@@ -38,12 +38,12 @@ public class CustomEnchantListeners implements Listener {
         if (event.getPlayer().getInventory().getBoots() == null) return;
         final ItemStack boots = event.getPlayer().getInventory().getBoots();
         if (boots == null) return;
-
+        // checking if the boots have the PDC key "speed"
         final PersistentDataContainer pdc = boots.getItemMeta().getPersistentDataContainer();
         if (pdc.has(new NamespacedKey(plugin, "speed"), PersistentDataType.STRING)) {
             assert boots.getItemMeta() != null && boots.getItemMeta().getLore() != null;
             final String data = pdc.get(new NamespacedKey(plugin, "speed"), PersistentDataType.STRING);
-            int level = Integer.parseInt(data.replaceAll("[\\D]", ""));
+            int level = Integer.parseInt(data.replaceAll("[\\D]", "")); // get the level that is on the PDC and applying affects according to it
             event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 100, level - 1));
         }
     }
@@ -52,11 +52,21 @@ public class CustomEnchantListeners implements Listener {
     public void onTelekinesis(BlockBreakEvent event) {
         final ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
         if (item.getItemMeta() == null) return;
+        final SkyblockPlayer player = plugin.getPlayerManager().getSkyblockPlayer(event.getPlayer().getUniqueId());
+
+        // checking if the item held item has the PDC key telekinesis
 
         final PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
         if (pdc.has(new NamespacedKey(plugin, "telekinesis"), PersistentDataType.STRING)) {
+            final Skill skill = plugin.getSkillManager().getSkillByNamePlayer(player, "miner");
+            final SkillReward<Material> minerRewards = ((LumberJack) skill).getSkillRewards(); // getting the reward map of the miner skill
+
             event.getPlayer().getInventory().addItem(new ItemStack(event.getBlock().getType()));
-            event.setDropItems(false);
+            event.setDropItems(false); // cancel the item dropping after breaking
+            // give the appropriate reward for mining the block
+            if(minerRewards.getRewardsMap().containsKey(event.getBlock().getType())) {
+                plugin.getSkillManager().addExperience(player, skill, minerRewards.getRewardsMap().get(event.getBlock().getType()));
+            }
 
         }
     }
@@ -67,20 +77,23 @@ public class CustomEnchantListeners implements Listener {
         if (item.getItemMeta() == null) return;
 
         final SkyblockPlayer player = plugin.getPlayerManager().getSkyblockPlayer(event.getPlayer().getUniqueId());
-        final Skill skill = plugin.getSkillManager().getSkillByNamePlayer(player, "lumberjack");
-        final SkillReward<Material> lumberJackRewards = ((LumberJack) skill).getSkillRewards();
+        final Skill skill = plugin.getSkillManager().getSkillByNamePlayer(player, "lumberjack"); // getting the lumberjack skill
+        final SkillReward<Material> lumberJackRewards = ((LumberJack) skill).getSkillRewards(); // lumberjack reward map
         final PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
 
+        // checking if a Wood block/log was mined
         if (event.getBlock().getType().name().contains("WOOD") || event.getBlock().getType().name().contains("LOG")) {
+            // checking for the PDC key
             if (pdc.has(new NamespacedKey(plugin, "timber"), PersistentDataType.STRING)) {
                 final String data = pdc.get(new NamespacedKey(plugin, "timber"), PersistentDataType.STRING); // checking if the PDC contains timber
-                final int level = Integer.parseInt(data.replaceAll("[\\D]", ""));
+                final int level = Integer.parseInt(data.replaceAll("[\\D]", "")); // getting the level (higher level more blocks)
                 int limit = 4;
                 // every level 4 x level blocks will break (lvl 2 = 4x2 = 8 blocks)
                 for (final Block block : getConnectedBlock(event.getBlock()).stream().limit((long) limit * (long) level).collect(Collectors.toList())) {
                     event.getPlayer().getInventory().addItem(new ItemStack(block.getType()));
                     // adding skill experience for every "broken" block
                     if (lumberJackRewards.getRewardsMap().containsKey(event.getBlock().getType())) {
+                        // applying skill exp
                         plugin.getSkillManager().addExperience(player, skill, lumberJackRewards.getRewardsMap().get(event.getBlock().getType()));
                     }
                     block.setType(Material.AIR);
@@ -104,6 +117,7 @@ public class CustomEnchantListeners implements Listener {
         }
     }
 
+    // get the connected blocks of the same type
     private Set<Block> getConnectedBlock(Block block) {
         final Set<Block> set = new HashSet<>();
         final LinkedList<Block> list = new LinkedList<>();

@@ -36,16 +36,16 @@ public class AuctionHouseCommand extends BaseCommand {
                 int price = 0;
                 try {
                     price = Integer.parseInt(args[0]);
-                } catch (final NumberFormatException e) {
+                } catch (final NumberFormatException e) { // the player tried to enter a non numeric price
                     player.sendMessage(Utils.colorize("&cPlease enter a valid price!"));
                 }
-                if (player.getInventory().getItemInMainHand().getType() == Material.AIR) {
+                if (player.getInventory().getItemInMainHand().getType() == Material.AIR) { // not allowing people to sell "AIR/Empty slots"
                     player.sendMessage(Utils.colorize("&cPlease hold the item you want to sell in your main hand!"));
-                } else if (price == 0) {
+                } else if (price == 0) { // not allowing someone to sell items for free
                     skyblockPlayer.sendMessage("&cYou can not sell items for free");
                 } else {
                     if (player.getInventory().getItemInMainHand().getItemMeta().getPersistentDataContainer().isEmpty()) {
-
+                        // add the auction to the auction house
                         plugin.getAuctionManager().addAuctionItem(new AuctionItem(skyblockPlayer.getOfflinePlayer(), price, player.getInventory().getItemInMainHand()));
                         player.getInventory().setItemInMainHand(null);
                         player.sendMessage(Utils.colorize("&aSuccessfully put your item on the auction house for &2" + price + " coins!"));

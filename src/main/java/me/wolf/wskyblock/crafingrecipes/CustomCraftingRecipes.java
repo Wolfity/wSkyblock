@@ -25,7 +25,7 @@ public class CustomCraftingRecipes {
     public void loadRecipes(final SkyblockPlugin plugin) {
         addRecipes(timberAxeRecipe(plugin), godAppleRecipe(plugin), telekinesisPickaxeRecipe(plugin), godPotionRecipe(plugin));
         for (final ShapedRecipe recipe : recipes) {
-            plugin.getServer().addRecipe(recipe);
+            plugin.getServer().addRecipe(recipe); // adding all the recipes to the server
         }
     }
 

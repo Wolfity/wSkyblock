@@ -20,7 +20,7 @@ public class ShopGUI extends SkyblockGUI {
 
         for (final SkyblockShop shop : shops) { // putting every shop in the menu with their item and name
             setItem(shop.getSlot(), shop.getIcon(), player -> {
-                if (isEnabled(owner, shop)) { // if it's enabled, allow a user to click open
+                if (isEnabled(owner, shop)) { // if it's enabled, allow a player to click open
                     new ShopMenuGUI(shop, owner, 1, plugin);
                 }
             });

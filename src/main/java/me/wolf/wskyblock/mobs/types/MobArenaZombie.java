@@ -26,7 +26,7 @@ public class MobArenaZombie extends EntityZombie implements IArenaMob {
 
     }
 
-    @Override
+    @Override // setting it up, giving the appropriate armor, name, damage, speed and HP
     public void setupEntity(final YamlConfig cfg) {
         final String name = cfg.getConfig().getString("mobs.zombie.name");
         final double damage = cfg.getConfig().getDouble("mobs.zombie.damage");

@@ -36,12 +36,13 @@ public class IslandManager {
         this.plugin = plugin;
     }
 
-    // creation of an island, creating a new world named after the user
+    // creation of an island, creating a new world named after the player
     public void createIsland(final SkyblockPlayer owner) {
         final Island island = new Island(owner);
         island.setSpawn(new Location(new WorldCreator(owner.getName()).generator(new EmptyChunkGenerator()).createWorld(), 0, 100, 0));
         islands.add(island);
 
+        // saving all the island data to the database
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             plugin.getSqLiteManager().setSpawn(owner.getUuid(), spawnToString(island.getSpawn()));
             plugin.getSqLiteManager().setAcceptVisitors(owner.getUuid(), island.acceptsVisitors());

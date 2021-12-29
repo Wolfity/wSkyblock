@@ -29,14 +29,14 @@ public class MainGUI extends SkyblockGUI {
             final int slot = plugin.getConfig().getInt("guis." + gui + ".slot");
             final String name = plugin.getConfig().getString("guis." + gui + ".name");
 
-            if (gui.equalsIgnoreCase("island")) { // the lore/name of this item depends on whether a user has an island or not
+            if (gui.equalsIgnoreCase("island")) { // the lore/name of this item depends on whether a player has an island or not
                 setItem(slot, ItemUtils.createItem(material, iconName, lore), player -> {
-                    if (iconName.equalsIgnoreCase(Utils.colorize("&aCreate an island!"))) { // the user does not have an island, create a new one
+                    if (iconName.equalsIgnoreCase(Utils.colorize("&aCreate an island!"))) { // the player does not have an island, create a new one
                         player.closeInventory();
                         owner.sendMessage("&a&lYour island has been created! Teleporting might take a while.");
                         plugin.getIslandManager().createIsland(owner);
 
-                    } else if (iconName.equalsIgnoreCase(Utils.colorize("&aWarp to your island!"))) { // user has an island, telport
+                    } else if (iconName.equalsIgnoreCase(Utils.colorize("&aWarp to your island!"))) { // player has an island -> telport
                         player.closeInventory();
                         player.teleport(plugin.getIslandManager().getIslandByOwner(owner).getSpawn());
                         owner.sendMessage("&aYou were teleported to your island!");

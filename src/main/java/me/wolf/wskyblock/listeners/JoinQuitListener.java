@@ -44,7 +44,7 @@ public class JoinQuitListener implements Listener {
     }
 
     @EventHandler
-    public void onQuit(PlayerQuitEvent event) { // saving the users island/stats
+    public void onQuit(PlayerQuitEvent event) { // saving the player's island/stats
         final SkyblockPlayer player = plugin.getPlayerManager().getSkyblockPlayer(event.getPlayer().getUniqueId());
         Bukkit.getWorld(event.getPlayer().getName()).save();
 

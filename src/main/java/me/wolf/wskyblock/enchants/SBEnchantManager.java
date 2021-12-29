@@ -12,7 +12,7 @@ public class SBEnchantManager {
     private final Set<SBEnchantment> sbEnchantments = new HashSet<>();
 
     public void loadEnchants(final YamlConfig cfg) {
-
+        // loading every custom enchant by their name
         for (final String enchant : cfg.getConfig().getConfigurationSection("enchants").getKeys(false)) {
             final boolean isEnabled = cfg.getConfig().getBoolean("enchants." + enchant + ".enabled");
             if (isEnabled) {
@@ -20,10 +20,7 @@ public class SBEnchantManager {
                 final String name = cfg.getConfig().getString("enchants." + enchant + ".name");
                 final String display = cfg.getConfig().getString("enchants." + enchant + ".display");
                 final int maxLevel = cfg.getConfig().getInt("enchants." + enchant + ".max-level");
-                final int cost = cfg.getConfig().getInt("enchants." + enchant + ".cost");
-                final double costIncrease = cfg.getConfig().getDouble("enchants." + enchant + ".cost-increase");
-
-                addSBEnchants(new SBEnchantment(target, name, display, maxLevel, costIncrease, cost));
+                addSBEnchants(new SBEnchantment(target, name, display, maxLevel));
             }
         }
 

@@ -33,7 +33,7 @@ public class SkillManager {
         List<String> description = new ArrayList<>();
         ItemStack icon = null;
         String scoreboardDisplay = "";
-
+        // loading in the visuals for every skill
         for (final Skill skill : skills) {
             if (skill.getName().equalsIgnoreCase("miner")) {
                 description = plugin.getFileManager().getMinerConfig().getConfig().getStringList("description");
@@ -59,7 +59,7 @@ public class SkillManager {
         return skills;
     }
 
-    // get the skill by a name, from a specific user (To track per user progress)
+    // get the skill by a name, from a specific player (To track per player progress)
     public Skill getSkillByNamePlayer(final SkyblockPlayer player, final String name) {
         return player.getSkills().stream().filter(skill -> skill.getName().equalsIgnoreCase(name)).collect(Collectors.toList()).get(0);
     }
@@ -76,8 +76,14 @@ public class SkillManager {
         }
     }
 
+    /**
+     * Adding experience to a skill
+     * @param player the player you give the experience to
+     * @param skill the skill you want to increase the experience of
+     * @param amount the amount of XP you want to add
+     */
     public void addExperience(final SkyblockPlayer player, final Skill skill, int amount) {
-        if (skill.getLucky()) { // if the user got lucky, double the XP ;)
+        if (skill.getLucky()) { // if the player got lucky, double the XP ;)
             amount *= 2;
         }
         if (skill.getCurrentExp() + amount >= skill.getExperienceNextLevel()) { // check if they will level up

@@ -23,6 +23,7 @@ public enum SupportEnchantItem {
     ALL_TOOLS(Stream.of(AXE.getSupportedItems(), PICKAXE.getSupportedItems(), SHOVEL.getSupportedItems()).flatMap(Collection::stream).collect(Collectors.toList())),
     ;
 
+
     private final List<Material> supportedItems;
 
     SupportEnchantItem(final List<Material> supportedItems) {

@@ -68,7 +68,9 @@ public class SkillListeners implements Listener {
         final SkyblockPlayer player = plugin.getPlayerManager().getSkyblockPlayer(event.getEntity().getKiller().getUniqueId());
         final Skill monsterkiller = plugin.getSkillManager().getSkillByNamePlayer(player, "monster killer");
         // if a monster that was in the skill rewards config was killed, reward the player
+
         final SkillReward<EntityType> monsterKillerRewards = ((MonsterKiller) monsterkiller).getSkillRewards();
+
         if (monsterKillerRewards.getRewardsMap().containsKey(event.getEntity().getType())) {
             plugin.getSkillManager().addExperience(player, monsterkiller, monsterKillerRewards.getRewardsMap().get(event.getEntity().getType()));
             if (monsterkiller.getLucky()) {
@@ -84,8 +86,8 @@ public class SkillListeners implements Listener {
 
     @EventHandler
     public void onMonsterDamage(EntityDamageByEntityEvent event) {
-        if (!(event.getEntity() instanceof Monster)) return;
-        if (!(event.getDamager() instanceof Player)) return;
+        if (!(event.getEntity() instanceof Monster)) return; // checking if the entity that took damage isn't a monster and returning
+        if (!(event.getDamager() instanceof Player)) return; // checking if the damager isn't a player and returning
 
         final SkyblockPlayer player = plugin.getPlayerManager().getSkyblockPlayer(event.getDamager().getUniqueId());
         final Skill monsterkiller = plugin.getSkillManager().getSkillByNamePlayer(player, "monster killer");

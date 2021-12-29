@@ -28,6 +28,7 @@ public class MobArenaManager {
     private final Map<String, Integer> mobRewards = new HashMap<>(); // used in the MobArenaListener to see if a mob with these names was killed
 
 
+    // creating a mob arena entry in the yml file
     public void createMobArena(final String name) {
         final MobArena mobArena = new MobArena(name);
         this.mobArenas.add(mobArena);
@@ -38,7 +39,7 @@ public class MobArenaManager {
         cfg.saveConfig();
 
     }
-
+    // removing a mob arena
     public void removeMobArena(final String name) {
         final YamlConfig cfg = plugin.getFileManager().getMobArenaConfig();
         cfg.getConfig().set("mobarenas." + name, null);
@@ -67,6 +68,7 @@ public class MobArenaManager {
         }
     }
 
+    // getting a mobarena by the name
     public MobArena getMobArenaByName(final String name) {
         return mobArenas.stream().filter(mobArena -> mobArena.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
     }
@@ -80,15 +82,18 @@ public class MobArenaManager {
         cfg.saveConfig();
     }
 
+    // converting a location to a String
     private String locToString(final Location location) {
         return location.getWorld().getName() + " " + location.getX() + " " + location.getY() + " " + location.getZ();
     }
 
+    // converting a string to a location
     private Location stringToLoc(final String locString) {
         final String[] split = locString.split(" ");
         return new Location(Bukkit.getWorld(split[0]), Double.parseDouble(split[1]), Double.parseDouble(split[2]), Double.parseDouble(split[3]));
     }
 
+    // checking if a specific arena exists
     public boolean doesMobArenaExist(final String mob) {
         return this.mobArenas.stream().anyMatch(mobArena -> mobArena.getName().equalsIgnoreCase(mob));
     }
@@ -97,6 +102,7 @@ public class MobArenaManager {
         return mobArenas;
     }
 
+    // spawn the mobs
     private void startSpawning(final MobArena arena) {
         new BukkitRunnable() {
             @Override
@@ -118,12 +124,11 @@ public class MobArenaManager {
     }
 
     private void spawnMob(final MobArena arena) {
-
         final World world = ((CraftWorld) arena.getCuboid().getRandomLocation().getWorld()).getHandle();
         final Location location = arena.getCuboid().getRandomLocation();
         final int y = location.getWorld().getHighestBlockYAt(location) + 1; // let them spawn on the floor and not in the sky
         location.setY(y);
-
+        // getting a random mob to spawn
         final int random = new Random().nextInt(3);
         switch (random) {
             case 0:
@@ -138,7 +143,7 @@ public class MobArenaManager {
 
         }
 
-        arena.increaseEntityCount();
+        arena.increaseEntityCount(); // increase the amount of entities in an arena (So we don't exceed the maximum amount)
     }
 
 

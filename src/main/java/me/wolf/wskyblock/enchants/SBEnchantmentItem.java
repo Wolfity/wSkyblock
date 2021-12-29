@@ -50,6 +50,7 @@ public class SBEnchantmentItem {
         return ItemUtils.createItem(itemStack.getType(), getName(), getFormat());
     }
 
+    // creating the lore of an item with a custom enchant
     public List<String> getLore() {
         final List<String> updatedLore = new ArrayList<>();
         for (int i = 0; i < getSbEnchantments().size(); i++) {
@@ -58,6 +59,7 @@ public class SBEnchantmentItem {
         return updatedLore;
     }
 
+    // formatting it for the magic market store
     private List<String> getFormat() {
         final List<String> formatted = new ArrayList<>();
         for (int i = 0; i < getSbEnchantments().size(); i++) {

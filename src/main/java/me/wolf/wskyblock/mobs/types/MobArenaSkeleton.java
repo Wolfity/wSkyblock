@@ -25,7 +25,7 @@ public class MobArenaSkeleton extends EntitySkeleton implements IArenaMob {
     }
 
 
-    @Override
+    @Override // setting it up, giving the appropriate armor, name, damage, speed and HP
     public void setupEntity(YamlConfig cfg) {
         final String name = cfg.getConfig().getString("mobs.skeleton.name");
         final double damage = cfg.getConfig().getDouble("mobs.skeleton.damage");

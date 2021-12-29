@@ -41,6 +41,7 @@ public class AuctionManager {
 
     }
 
+    // process a transaction of an item
     public void processAuctionTransaction(final SkyblockPlayer buyer, final OfflinePlayer seller, final AuctionItem auctionItem) {
         final SQLiteManager sqLiteManager = plugin.getSqLiteManager();
         if (plugin.getPlayerManager().getSkyblockPlayer(seller.getUniqueId()) == null) { // seller is offline
@@ -51,12 +52,12 @@ public class AuctionManager {
 
         final SkyblockPlayer sbSeller = plugin.getPlayerManager().getSkyblockPlayer(seller.getUniqueId());
 
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> { // update the buyer's inventory and take the buyer's coins away
             buyer.getInventory().addItem(sqLiteManager.getRawAuctionItemByID(auctionItem.getItemID()));
             sqLiteManager.setCoins(buyer.getUuid(), buyer.getCoins() - auctionItem.getPrice());
-            sqLiteManager.setCoins(seller.getUniqueId(), sqLiteManager.getCoins(seller.getUniqueId()) + auctionItem.getPrice());
+            sqLiteManager.setCoins(seller.getUniqueId(), sqLiteManager.getCoins(seller.getUniqueId()) + auctionItem.getPrice()); // update the seller coins
             if (sbSeller != null) {
-                sqLiteManager.saveData(seller.getUniqueId()); // if its not null (user is online, update their object, else no need to)
+                sqLiteManager.saveData(seller.getUniqueId()); // if its not null (player is online, update their object, else no need to)
             }
             sqLiteManager.saveData(buyer.getUuid());
         });

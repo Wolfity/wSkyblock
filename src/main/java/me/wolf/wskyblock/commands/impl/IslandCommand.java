@@ -43,6 +43,7 @@ public class IslandCommand extends BaseCommand {
                     if (!Objects.equals(player.getLocation().getWorld(), island.getSpawn().getWorld())) {
                         player.sendMessage("&cYou must be on your island!");
 
+                        // creating a warp if a warp with that name doesn't exist yet
                     } else if (doesWarpNotExist(island, name)) {
                         plugin.getIslandManager().addWarp(island, new Warp(player.getLocation(), name));
                         player.sendMessage("&aSuccessfully created the warp &2" + name);
@@ -50,6 +51,7 @@ public class IslandCommand extends BaseCommand {
                     } else player.sendMessage("&cThis warp already exists!");
                 } else player.sendMessage("&cYou need an island to use this command!");
 
+                // removing a warp by the name of the warp, first we check if it exists, if so, remove it
             } else if (args[0].equalsIgnoreCase("removewarp")) {
                 if (island != null) {
                     if (!doesWarpNotExist(island, name)) {

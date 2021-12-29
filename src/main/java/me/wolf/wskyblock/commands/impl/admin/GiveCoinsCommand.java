@@ -23,20 +23,21 @@ public class GiveCoinsCommand extends BaseCommand {
         // /givecoins <target> <amt>
         if (isAdmin()) {
             if (args.length == 2) {
-                if (Bukkit.getPlayerExact(args[0]) == null) player.sendMessage("&cInvalid User");
-                final SkyblockPlayer target = plugin.getPlayerManager().getSkyblockPlayer(Bukkit.getPlayerExact(args[0]).getUniqueId()); // user is online
+                if (Bukkit.getPlayerExact(args[0]) != null) {
+                    final SkyblockPlayer target = plugin.getPlayerManager().getSkyblockPlayer(Bukkit.getPlayerExact(args[0]).getUniqueId()); // player is online
 
-                int amount = 0;
-                try {
-                    amount = Integer.parseInt(args[1]);
-                } catch (final NumberFormatException e) {
-                    player.sendMessage("&cThis amount is not valid\nUsage: /addcoins <user> <amount> ");
-                }
+                    int amount = 0;
+                    try {
+                        amount = Integer.parseInt(args[1]);
+                    } catch (final NumberFormatException e) {
+                        player.sendMessage("&cThis amount is not valid\nUsage: /addcoins <player> <amount> ");
+                    }
 
-                int finalAmount = amount;
-                Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> target.setCoins(target.getCoins() + finalAmount));
-                player.sendMessage("&aSuccessfully given &2" + amount + " &acoins to &2" + target.getName());
+                    int finalAmount = amount;
+                    Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> target.setCoins(target.getCoins() + finalAmount));
+                    player.sendMessage("&aSuccessfully given &2" + amount + " &acoins to &2" + target.getName());
 
+                } else player.sendMessage("&cInvalid Player");
             }
 
         } else player.sendMessage("&cNo permission!");

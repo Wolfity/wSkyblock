@@ -19,7 +19,7 @@ public class ShopManager {
         this.fileManager = fileManager;
     }
 
-    public void registerShops() {
+    public void registerShops() { // registering the shops
         addShops(new BlockShop(), new FoodShop(), new MiscShop(), new MobDropsShop(), new ToolShop(), new ValuableShop());
         // load all the items for every shop
         for (final SkyblockShop skyblockShop : shops) {
@@ -48,6 +48,8 @@ public class ShopManager {
         final boolean enabled = config.getConfig().getBoolean("enabled");
         final int slot = config.getConfig().getInt("slot");
         final List<ShopItem> shopItems = new ArrayList<>();
+
+        // loading in the shop items (price, sell price, material)
         for (final String key : config.getConfig().getConfigurationSection("items").getKeys(false)) {
             final Material material = Material.valueOf(config.getConfig().getString("items." + key + ".material"));
             final int price = config.getConfig().getInt("items." + key + ".price");

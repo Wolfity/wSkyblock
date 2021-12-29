@@ -103,10 +103,6 @@ public class Cuboid {
                 .getBlockZ() >= this.zMin && loc.getBlockZ() <= this.zMax;
     }
 
-    public boolean isIn(final Player player) {
-        return this.isIn(player.getLocation());
-    }
-
     public boolean isInWithMarge(final Location loc, final double marge) {
         return loc.getWorld() == this.world && loc.getX() >= this.xMinCentered - marge && loc.getX() <= this.xMaxCentered + marge && loc.getY() >= this.yMinCentered - marge && loc
                 .getY() <= this.yMaxCentered + marge && loc.getZ() >= this.zMinCentered - marge && loc.getZ() <= this.zMaxCentered + marge;

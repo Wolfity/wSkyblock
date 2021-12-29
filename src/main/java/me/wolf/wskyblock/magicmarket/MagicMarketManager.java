@@ -27,20 +27,18 @@ public class MagicMarketManager {
         magicMarket.setEnchantmentItems(loadItems(yamlConfig));
     }
 
-
-    public boolean doesItemByNameExist(final String name) {
-        return this.magicMarket.getEnchantmentItems().stream().anyMatch(enchantmentItem -> enchantmentItem.getName().equalsIgnoreCase(Utils.colorize(name)));
-    }
-
+    // loading in all items from the file
     private List<SBEnchantmentItem> loadItems(final YamlConfig yamlConfig) {
         final List<SBEnchantmentItem> magicMarketItems = new ArrayList<>();
 
         for (final String key : yamlConfig.getConfig().getConfigurationSection("items").getKeys(false)) { //  1,2,3,4...
+            // getting their representing items
             final Material material = Material.valueOf(yamlConfig.getConfig().getString("items." + key + ".material"));
             final String name = Utils.colorize(yamlConfig.getConfig().getString("items." + key + ".name"));
             final int price = yamlConfig.getConfig().getInt("items." + key + ".price");
             final List<SBEnchantment> sbEnchantments = new ArrayList<>();
 
+            // getting their custom enchants
             for (final String enchKey : yamlConfig.getConfig().getConfigurationSection("items." + key + ".custom-enchants").getKeys(false)) {
                 final String enchType = yamlConfig.getConfig().getString("items." + key + ".custom-enchants." + enchKey + ".type");
                 final int level = yamlConfig.getConfig().getInt("items." + key + ".custom-enchants." + enchKey + ".level");

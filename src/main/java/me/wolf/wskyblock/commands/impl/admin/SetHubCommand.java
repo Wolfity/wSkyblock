@@ -19,14 +19,16 @@ public class SetHubCommand extends BaseCommand {
 
     @Override
     protected void run(CommandSender sender, String[] args) {
-        final Player player = (Player) sender;
-        plugin.getConfig().createSection("spawn");
-        plugin.getConfig().set("spawn.world", player.getLocation().getWorld().getName());
-        plugin.getConfig().set("spawn.x", player.getLocation().getX());
-        plugin.getConfig().set("spawn.y", player.getLocation().getY());
-        plugin.getConfig().set("spawn.z", player.getLocation().getZ());
-        plugin.saveConfig();
+        if(isAdmin()) {
+            final Player player = (Player) sender;
+            plugin.getConfig().createSection("spawn");
+            plugin.getConfig().set("spawn.world", player.getLocation().getWorld().getName());
+            plugin.getConfig().set("spawn.x", player.getLocation().getX());
+            plugin.getConfig().set("spawn.y", player.getLocation().getY());
+            plugin.getConfig().set("spawn.z", player.getLocation().getZ());
+            plugin.saveConfig();
 
-        tell("&aSuccessfully set the hub spawn!");
+            tell("&aSuccessfully set the hub spawn!");
+        } else tell("&cNo Permission!");
     }
 }

@@ -29,6 +29,7 @@ public class MagicMarketListener implements Listener {
         final MagicMarket magicMarket = plugin.getMagicMarketManager().getMagicMarket();
         final SkyblockPlayer player = plugin.getPlayerManager().getSkyblockPlayer(event.getWhoClicked().getUniqueId());
 
+        // if you click an item in the menu, check if u have enough balance, if so, open the confirm purchase menu
         magicMarket.getEnchantmentItems().forEach(magicItem -> {
             if (event.getCurrentItem().equals(magicItem.getItemStack())) {
                 if (canAfford(player, magicItem.getPrice())) {

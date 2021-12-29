@@ -6,30 +6,20 @@ public class SBEnchantment {
 
     private final SupportEnchantItem supportEnchantItem;
     private final String name, display;
-    private final int maxLevel, cost;
-    private final double levelIncreaseCost;
+    private final int maxLevel;
     private int currentLevel;
 
-    public SBEnchantment(final SupportEnchantItem supportEnchantItem, final String name, final String display, final int maxLevel, final double levelIncreaseCost, final int cost) {
+    public SBEnchantment(final SupportEnchantItem supportEnchantItem, final String name, final String display, final int maxLevel) {
         this.supportEnchantItem = supportEnchantItem;
         this.name = name;
         this.display = display;
         this.currentLevel = 1;
         this.maxLevel = maxLevel;
-        this.levelIncreaseCost = levelIncreaseCost;
-        this.cost = cost;
+
     }
 
     public String getName() {
         return name;
-    }
-
-    public double getLevelIncreaseCost() {
-        return levelIncreaseCost;
-    }
-
-    public int getCost() {
-        return cost;
     }
 
     public int getCurrentLevel() {
