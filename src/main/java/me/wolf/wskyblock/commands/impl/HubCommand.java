@@ -21,12 +21,17 @@ public class HubCommand extends BaseCommand {
 
     @Override
     protected void run(CommandSender sender, String[] args) {
-        ((Player) sender).teleport(
-                new Location(Bukkit.getWorld(Objects.requireNonNull(plugin.getConfig().getString("spawn.world"))),
-                        plugin.getConfig().getDouble("spawn.x"),
-                        plugin.getConfig().getDouble("spawn.y"),
-                        plugin.getConfig().getDouble("spawn.z")));
+        final Location hub = new Location(Bukkit.getWorld(Objects.requireNonNull(plugin.getConfig().getString("spawn.world"))),
+                plugin.getConfig().getDouble("spawn.x"),
+                plugin.getConfig().getDouble("spawn.y"),
+                plugin.getConfig().getDouble("spawn.z"));
 
-        tell("&aTeleported to the hub!");
+        if(hub.getWorld() == null) {
+            tell("&cNo Hub has been set yet!");
+        } else {
+            ((Player)sender).teleport(hub);
+            tell("&aTeleported to the hub!");
+        }
+
     }
 }

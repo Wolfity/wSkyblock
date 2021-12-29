@@ -1,6 +1,7 @@
 enabled: true
 name: "&bMob Drops"
 icon: ZOMBIE_HEAD
+slot: 21
 items:
   '1':
     material: ROTTEN_FLESH

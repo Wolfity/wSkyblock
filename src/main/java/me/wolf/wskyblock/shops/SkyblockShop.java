@@ -7,10 +7,11 @@ import java.util.List;
 
 public abstract class SkyblockShop implements Comparable<SkyblockShop> {
 
-    private String name;
+    private final String name;
     private ItemStack icon;
     private List<ShopItem> shopItems;
     private boolean isEnabled;
+    private int slot;
 
     public SkyblockShop(final String name) {
         this.name = name;
@@ -30,10 +31,6 @@ public abstract class SkyblockShop implements Comparable<SkyblockShop> {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public List<ShopItem> getShopItems() {
         return shopItems;
     }
@@ -48,6 +45,14 @@ public abstract class SkyblockShop implements Comparable<SkyblockShop> {
 
     public void setEnabled(boolean enabled) {
         isEnabled = enabled;
+    }
+
+    public int getSlot() {
+        return slot;
+    }
+
+    public void setSlot(int slot) {
+        this.slot = slot;
     }
 
     @Override

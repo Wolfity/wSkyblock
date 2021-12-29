@@ -24,28 +24,49 @@ public class MainGUI extends SkyblockGUI {
         final List<String> lore = island == null ?
                 Collections.singletonList(Utils.colorize("&bYou don't have an island yet!")) : Collections.singletonList(Utils.colorize("&cTeleport to your island!"));
 
-        setItem(12, plugin.getMagicMarketManager().getMagicMarket().getIcon(), player -> new MagicMarketGUI(plugin, owner, plugin.getMagicMarketManager().getMagicMarket(), 1));
-        setItem(14, ItemUtils.createItem(Material.DARK_OAK_BOAT, "&aAuction House"), player -> new AuctionGUI(owner, plugin.getAuctionManager().getAuctionHouse(), 1, plugin));
-        setItem(20, ItemUtils.createItem(Material.DIAMOND_SWORD, "&cSkills"), player -> new SkillGUI(plugin, owner));
-        setItem(22, ItemUtils.createItem(Material.GRASS_BLOCK, iconName, lore), player -> {
-            if (iconName.equalsIgnoreCase(Utils.colorize("&aCreate an island!"))) { // the user does not have an island, create a new one
-                player.closeInventory();
-                owner.sendMessage("&a&lYour island has been created! Teleporting might take a while.");
-                plugin.getIslandManager().createIsland(owner);
+        for (final String gui : plugin.getConfig().getConfigurationSection("guis").getKeys(false)) {
+            final Material material = Material.valueOf(plugin.getConfig().getString("guis." + gui + ".icon"));
+            final int slot = plugin.getConfig().getInt("guis." + gui + ".slot");
+            final String name = plugin.getConfig().getString("guis." + gui + ".name");
 
-            } else if (iconName.equalsIgnoreCase(Utils.colorize("&aWarp to your island!"))) { // user has an island, telport
-                player.closeInventory();
-                player.teleport(plugin.getIslandManager().getIslandByOwner(owner).getSpawn());
-                owner.sendMessage("&aYou were teleported to your island!");
+            if (gui.equalsIgnoreCase("island")) { // the lore/name of this item depends on whether a user has an island or not
+                setItem(slot, ItemUtils.createItem(material, iconName, lore), player -> {
+                    if (iconName.equalsIgnoreCase(Utils.colorize("&aCreate an island!"))) { // the user does not have an island, create a new one
+                        player.closeInventory();
+                        owner.sendMessage("&a&lYour island has been created! Teleporting might take a while.");
+                        plugin.getIslandManager().createIsland(owner);
+
+                    } else if (iconName.equalsIgnoreCase(Utils.colorize("&aWarp to your island!"))) { // user has an island, telport
+                        player.closeInventory();
+                        player.teleport(plugin.getIslandManager().getIslandByOwner(owner).getSpawn());
+                        owner.sendMessage("&aYou were teleported to your island!");
+                    }
+                });
             }
-        });
+            switch (gui) {
+                case "magicmarket":
+                    setItem(slot, ItemUtils.createItem(material, name), player -> new MagicMarketGUI(plugin, owner, plugin.getMagicMarketManager().getMagicMarket(), 1));
+                    break;
+                case "auctionhouse":
+                    setItem(slot, ItemUtils.createItem(material, name), player -> new AuctionGUI(owner, plugin.getAuctionManager().getAuctionHouse(), 1, plugin));
+                    break;
+                case "skills":
+                    setItem(slot, ItemUtils.createItem(material, name), player -> new SkillGUI(plugin, owner));
+                    break;
+                case "warps":
+                    setItem(slot, ItemUtils.createItem(material, name), player -> {
+                        if (island == null) {
+                            owner.sendMessage("&cYou need to create an island before using this!");
+                        } else new WarpGUI(plugin, owner);
+                    });
+                    break;
+                case "shop":
+                    setItem(slot, ItemUtils.createItem(material, name), player -> new ShopGUI(plugin, owner));
+                    break;
+            }
 
-        setItem(24, ItemUtils.createItem(Material.DIAMOND, "&bShop"), player -> new ShopGUI(plugin, owner));
-        setItem(31, ItemUtils.createItem(Material.ENDER_PEARL, "&bWarps"), player -> {
-            if (island == null) {
-                owner.sendMessage("&cYou need to create an island before using this!");
-            } else new WarpGUI(plugin, owner);
-        });
+
+        }
 
         fillGUI(Material.GRAY_STAINED_GLASS_PANE);
 

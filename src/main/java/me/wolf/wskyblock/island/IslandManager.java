@@ -42,7 +42,6 @@ public class IslandManager {
         island.setSpawn(new Location(new WorldCreator(owner.getName()).generator(new EmptyChunkGenerator()).createWorld(), 0, 100, 0));
         islands.add(island);
 
-        // TODO warps..
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             plugin.getSqLiteManager().setSpawn(owner.getUuid(), spawnToString(island.getSpawn()));
             plugin.getSqLiteManager().setAcceptVisitors(owner.getUuid(), island.acceptsVisitors());
@@ -90,7 +89,7 @@ public class IslandManager {
     }
 
     // preparing and pasting the schemetica from the default skyblock island
-    private void createSchem(final Location spawn) throws IOException { // TODO make fail-safe checking if it exists
+    private void createSchem(final Location spawn) throws IOException {
 
         final File schem = new File("schematics/island.schematic");
 

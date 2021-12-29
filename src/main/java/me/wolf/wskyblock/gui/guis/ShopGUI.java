@@ -18,38 +18,15 @@ public class ShopGUI extends SkyblockGUI {
         final List<SkyblockShop> shops = new ArrayList<>(plugin.getShopManager().getShops());
         Collections.sort(shops);
 
-        setItem(12, shops.get(0).getIcon(), player -> {
-            if (isEnabled(owner, shops.get(0))) {
-                new ShopMenuGUI(shops.get(0), owner, 1, plugin);
-            }
-        });
-        setItem(14, shops.get(1).getIcon(), player -> {
-            if (isEnabled(owner, shops.get(1))) {
-                new ShopMenuGUI(shops.get(1), owner, 1, plugin);
-            }
-        });
-        setItem(20, shops.get(2).getIcon(), player -> {
-            if (isEnabled(owner, shops.get(2))) {
-                new ShopMenuGUI(shops.get(2), owner, 1, plugin);
-            }
-        });
-        setItem(21, shops.get(3).getIcon(), player -> {
-            if (isEnabled(owner, shops.get(3))) {
-                new ShopMenuGUI(shops.get(3), owner, 1, plugin);
-            }
-        });
-        setItem(22, shops.get(4).getIcon(), player -> {
-            if (isEnabled(owner, shops.get(4))) {
-                new ShopMenuGUI(shops.get(4), owner, 1, plugin);
-            }
-        });
-        setItem(23, shops.get(5).getIcon(), player -> {
-            if (isEnabled(owner, shops.get(5))) {
-                new ShopMenuGUI(shops.get(5), owner, 1, plugin);
-            }
-        });
-        setItem(35, getBackIcon(), player -> new MainGUI(plugin, owner));
+        for (final SkyblockShop shop : shops) { // putting every shop in the menu with their item and name
+            setItem(shop.getSlot(), shop.getIcon(), player -> {
+                if (isEnabled(owner, shop)) { // if it's enabled, allow a user to click open
+                    new ShopMenuGUI(shop, owner, 1, plugin);
+                }
+            });
+        }
 
+        setItem(35, getBackIcon(), player -> new MainGUI(plugin, owner));
 
         openSkyblockGUI(owner);
     }

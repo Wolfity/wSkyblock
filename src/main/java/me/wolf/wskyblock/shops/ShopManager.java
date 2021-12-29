@@ -43,8 +43,10 @@ public class ShopManager {
 
     // loop over the config to create ShopItem objects, to then pass to the shop
     public void cacheShopItems(final SkyblockShop skyblockShop, final YamlConfig config) {
+        // this is the icon that represents the shop itself (valuable shop = diamond for example)
         final ItemStack icon = ItemUtils.createItem(Material.valueOf(config.getConfig().getString("icon")), config.getConfig().getString("name"));
         final boolean enabled = config.getConfig().getBoolean("enabled");
+        final int slot = config.getConfig().getInt("slot");
         final List<ShopItem> shopItems = new ArrayList<>();
         for (final String key : config.getConfig().getConfigurationSection("items").getKeys(false)) {
             final Material material = Material.valueOf(config.getConfig().getString("items." + key + ".material"));
@@ -56,6 +58,7 @@ public class ShopManager {
         skyblockShop.setShopItems(shopItems);
         skyblockShop.setIcon(icon);
         skyblockShop.setEnabled(enabled);
+        skyblockShop.setSlot(slot);
     }
 
     public void addShops(final SkyblockShop... shops) {

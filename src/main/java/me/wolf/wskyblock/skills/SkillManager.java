@@ -76,7 +76,7 @@ public class SkillManager {
         }
     }
 
-    public void addExperience(final SkyblockPlayer player, final Skill skill, int amount) { // TODO save to DB more frequent
+    public void addExperience(final SkyblockPlayer player, final Skill skill, int amount) {
         if (skill.getLucky()) { // if the user got lucky, double the XP ;)
             amount *= 2;
         }

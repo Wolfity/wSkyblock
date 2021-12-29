@@ -1,6 +1,7 @@
 enabled: true
 name: "&aFood"
 icon: COOKED_BEEF
+slot: 14
 items:
   '1':
     material: COOKED_BEEF

@@ -1,2 +1,29 @@
 warp-icon: ENDER_PEARL
 warp-display: "&c"
+
+guis:
+  shop:
+    icon: DIAMOND
+    name: "&bShop"
+    slot: 12
+  magicmarket:
+    icon: ENCHANTING_TABLE
+    name: "&6Magic Market"
+    slot: 14
+  island:
+    icon: GRASS_BLOCK
+    slot: 22
+  auctionhouse:
+    icon: CHEST
+    name: "&bAuction House"
+    slot: 20
+  warps:
+    icon: ENDER_PEARL
+    name: "&cWarps"
+    slot: 31
+  skills:
+    icon: DIAMOND_SWORD
+    name: "&aSkills"
+    slot: 24
+
+

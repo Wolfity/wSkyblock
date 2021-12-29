@@ -1,6 +1,7 @@
 enabled: true
 name: "&aMisc"
 icon: LAVA_BUCKET
+slot: 13
 items:
   '1':
     material: LAVA_BUCKET

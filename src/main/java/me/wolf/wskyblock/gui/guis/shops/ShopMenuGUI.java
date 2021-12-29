@@ -3,6 +3,7 @@ package me.wolf.wskyblock.gui.guis.shops;
 import me.wolf.wskyblock.SkyblockPlugin;
 import me.wolf.wskyblock.gui.PaginatedMenu;
 import me.wolf.wskyblock.gui.guis.MainGUI;
+import me.wolf.wskyblock.gui.guis.ShopGUI;
 import me.wolf.wskyblock.player.SkyblockPlayer;
 import me.wolf.wskyblock.shops.ShopItem;
 import me.wolf.wskyblock.shops.SkyblockShop;
@@ -30,7 +31,7 @@ public class ShopMenuGUI extends PaginatedMenu {
             });
         } else setItem(50, getInvalidPage());
 
-        setItem(49, getBackIcon(), player -> new MainGUI(plugin, owner));
+        setItem(49, getBackIcon(), player -> new ShopGUI(plugin, owner));
 
         // 28 refers to the usable slots
         for (ShopItem is : getShopPageItems(shopItems, page, 28)) {

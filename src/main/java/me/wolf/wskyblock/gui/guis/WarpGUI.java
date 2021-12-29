@@ -26,6 +26,8 @@ public class WarpGUI extends SkyblockGUI {
             });
         }
 
+        setItem(53, getBackIcon(), player -> new MainGUI(plugin, owner));
+
         openSkyblockGUI(owner);
     }
 }

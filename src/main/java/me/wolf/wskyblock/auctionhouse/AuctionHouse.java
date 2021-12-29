@@ -6,8 +6,6 @@ import java.util.Set;
 
 public class AuctionHouse {
 
-
-    // TODO filters
     private final String display;
     private Set<AuctionItem> auctionItems;
 

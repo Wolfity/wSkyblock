@@ -1,6 +1,7 @@
 enabled: true
 name: "&aBlocks"
 icon: GRASS_BLOCK
+slot: 12
 items:
   '1':
     material: COBBLESTONE

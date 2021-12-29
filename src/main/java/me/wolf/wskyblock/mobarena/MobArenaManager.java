@@ -65,7 +65,6 @@ public class MobArenaManager {
         } catch (final NullPointerException e) {
             Bukkit.getLogger().info("No arenas were loaded, or something went wrong loading them!");
         }
-
     }
 
     public MobArena getMobArenaByName(final String name) {
