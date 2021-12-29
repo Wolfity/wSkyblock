@@ -5,6 +5,7 @@ import me.wolf.wskyblock.player.SkyblockPlayer;
 import me.wolf.wskyblock.skills.Skill;
 import me.wolf.wskyblock.skills.SkillReward;
 import me.wolf.wskyblock.skills.skilltypes.LumberJack;
+import me.wolf.wskyblock.skills.skilltypes.Miner;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
@@ -59,7 +60,7 @@ public class CustomEnchantListeners implements Listener {
         final PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
         if (pdc.has(new NamespacedKey(plugin, "telekinesis"), PersistentDataType.STRING)) {
             final Skill skill = plugin.getSkillManager().getSkillByNamePlayer(player, "miner");
-            final SkillReward<Material> minerRewards = ((LumberJack) skill).getSkillRewards(); // getting the reward map of the miner skill
+            final SkillReward<Material> minerRewards = ((Miner) skill).getSkillRewards(); // getting the reward map of the miner skill
 
             event.getPlayer().getInventory().addItem(new ItemStack(event.getBlock().getType()));
             event.setDropItems(false); // cancel the item dropping after breaking

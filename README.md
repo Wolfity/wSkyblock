@@ -17,14 +17,14 @@ Below I will go over all features and how you can use them.
 You can go to your island using the [/is] command. 
 Or by opening the skyblock profile menu using the [/sb] command.
 
-###**Skills**
+### **Skills**
 There are three types of skills, lumberjack, monster killer, 
 and miner. What do these skills do? Each of these skills has its benefit.
 
 **Monster Killer**
 You can level up the monster killer skill by killing mobs; 
 you can configure which mobs give how much XP, the amount of XP required for the next level, 
-the max level, the chances of getting lucky!
+the max level!
 
 **Miner**\
 You can level up the Miner skill by mining ores; 
@@ -38,7 +38,7 @@ you can configure which wood gives how much XP, the amount of XP
 required for the next level, the max level, the chances of getting lucky!
 
 
-### **Auction House**\
+### **Auction House**
 The auction house is a space where players can sell their items to other players.
 These items are saved in a database and loaded up on the server's start. 
 You can always cancel your auctions by going to the auction manager menu, 

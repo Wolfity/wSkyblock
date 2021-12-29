@@ -1,6 +1,10 @@
 icon-material: DIAMOND_AXE
 icon-name: "&cLumberjack"
 scoreboard-display: "&cLumberjack"
+max-level: 50
+xp-to-first-level: 150
+levelup-xp-increase-multiplier: 1.5
+
 description:
   - "&7chop trees to achieve a higher level."
   - "&7The higher your level, the better perks you get!"

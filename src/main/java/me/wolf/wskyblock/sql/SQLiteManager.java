@@ -48,11 +48,14 @@ public class SQLiteManager {
         } else {
             try (final Connection connection = hikari.getConnection();
                  final PreparedStatement ps = connection.prepareStatement(Query.CREATE_SKILLDATA)) {
+                final Skill miner = plugin.getSkillManager().getRawSkillByName("miner");
+                final Skill lumber = plugin.getSkillManager().getRawSkillByName("lumberjack");
+                final Skill monsterKiller = plugin.getSkillManager().getRawSkillByName("monster killer");
                 ps.setString(1, uuid.toString());
                 ps.setString(2, playerName);
-                ps.setString(3, "0 0 100 50"); // lumber: level 0 | exp: 0 | exp to next  100 | levelcap 50
-                ps.setString(4, "0 0 100 50"); // monsterkiller
-                ps.setString(5, "0 0 100 50"); // miner
+                ps.setString(3, "0 0 " + lumber.getExperienceNextLevel() / lumber.getExpIncreaseMultiplier() + " " + lumber.getLevelCap()); // lumber: level 0 | exp: 0 | exp to next  100 | levelcap 50
+                ps.setString(4, "0 0 " + monsterKiller.getExperienceNextLevel() / monsterKiller.getExpIncreaseMultiplier() + " " + monsterKiller.getLevelCap()); // monsterkiller
+                ps.setString(5, "0 0 " + miner.getExperienceNextLevel() / miner.getExpIncreaseMultiplier()+ " " + miner.getLevelCap()); // miner
 
                 ps.executeUpdate();
             } catch (final SQLException e) {

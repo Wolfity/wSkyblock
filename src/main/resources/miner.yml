@@ -1,6 +1,9 @@
 icon-material: DIAMOND_PICKAXE
 icon-name: "&cMiner"
 scoreboard-display: "&cMiner"
+max-level: 50
+xp-to-first-level: 150
+levelup-xp-increase-multiplier: 1.5
 description:
   - "&7Mine ores to achieve a higher level."
   - "&7The higher your level, the better perks you get!"

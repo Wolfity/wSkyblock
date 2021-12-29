@@ -1,7 +1,9 @@
 icon-material: DIAMOND_SWORD
 icon-name: "&cMonster Killer"
 scoreboard-display: "&cMonster Killer"
-
+max-level: 50
+xp-to-first-level: 150
+levelup-xp-increase-multiplier: 1.5
 description:
   - "&7Kill Monsters to achieve a higher level."
   - "&7The higher your level, the better perks you get!"

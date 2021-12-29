@@ -8,7 +8,7 @@ public abstract class Skill implements Comparable<Skill> {
 
     private final String name;
     private int levelCap, currentExp, level;
-    private double experienceNextLevel;
+    private double experienceNextLevel, expIncreaseMultiplier;
     private String[] description;
     private ItemStack icon;
     private String scoreboardDisplay;
@@ -83,6 +83,14 @@ public abstract class Skill implements Comparable<Skill> {
     public void addExperience(int currentExp) {
         this.currentExp += currentExp;
 
+    }
+
+    public double getExpIncreaseMultiplier() {
+        return expIncreaseMultiplier;
+    }
+
+    public void setExpIncreaseMultiplier(double expIncreaseMultiplier) {
+        this.expIncreaseMultiplier = expIncreaseMultiplier;
     }
 
     public int getLevelCap() {

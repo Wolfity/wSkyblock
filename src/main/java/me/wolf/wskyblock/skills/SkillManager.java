@@ -33,23 +33,39 @@ public class SkillManager {
         List<String> description = new ArrayList<>();
         ItemStack icon = null;
         String scoreboardDisplay = "";
+        int maxLevel = 0;
+        double experienceNextLevel = 0;
+        double multiplier = 0;
+
         // loading in the visuals for every skill
         for (final Skill skill : skills) {
             if (skill.getName().equalsIgnoreCase("miner")) {
-                description = plugin.getFileManager().getMinerConfig().getConfig().getStringList("description");
+                maxLevel = cfg.getMinerConfig().getConfig().getInt("max-level");
+                experienceNextLevel = cfg.getMinerConfig().getConfig().getDouble("xp-to-first-level");
+                multiplier = cfg.getMinerConfig().getConfig().getDouble("levelup-xp-increase-multiplier");
+                description = cfg.getMinerConfig().getConfig().getStringList("description");
                 icon = ItemUtils.createItem(Material.valueOf(cfg.getMinerConfig().getConfig().getString("icon-material")), cfg.getMinerConfig().getConfig().getString("icon-name"));
                 scoreboardDisplay = Utils.colorize(cfg.getMinerConfig().getConfig().getString("scoreboard-display"));
             } else if (skill.getName().equalsIgnoreCase("lumberjack")) {
-                description = plugin.getFileManager().getLumberjackConfig().getConfig().getStringList("description");
+                maxLevel = cfg.getMinerConfig().getConfig().getInt("max-level");
+                experienceNextLevel = cfg.getMinerConfig().getConfig().getDouble("xp-to-first-level");
+                multiplier = cfg.getMinerConfig().getConfig().getDouble("levelup-xp-increase-multiplier");
+                description = cfg.getLumberjackConfig().getConfig().getStringList("description");
                 icon = ItemUtils.createItem(Material.valueOf(cfg.getLumberjackConfig().getConfig().getString("icon-material")), cfg.getLumberjackConfig().getConfig().getString("icon-name"));
                 scoreboardDisplay = Utils.colorize(cfg.getLumberjackConfig().getConfig().getString("scoreboard-display"));
             } else if (skill.getName().equalsIgnoreCase("monster killer")) {
-                description = plugin.getFileManager().getMonsterKillerConfig().getConfig().getStringList("description");
+                maxLevel = cfg.getMonsterKillerConfig().getConfig().getInt("max-level");
+                experienceNextLevel = cfg.getMonsterKillerConfig().getConfig().getDouble("xp-to-first-level");
+                multiplier = cfg.getMinerConfig().getConfig().getDouble("levelup-xp-increase-multiplier");
+                description = cfg.getMonsterKillerConfig().getConfig().getStringList("description");
                 icon = ItemUtils.createItem(Material.valueOf(cfg.getMonsterKillerConfig().getConfig().getString("icon-material")), cfg.getMonsterKillerConfig().getConfig().getString("icon-name"));
                 scoreboardDisplay = Utils.colorize(cfg.getMonsterKillerConfig().getConfig().getString("scoreboard-display"));
             }
             skill.setDescription(description.toArray(new String[0]));
             skill.setIcon(icon);
+            skill.setLevelCap(maxLevel);
+            skill.setExpIncreaseMultiplier(multiplier);
+            skill.setExperienceNextLevel(experienceNextLevel);
             skill.setScoreboardDisplay(scoreboardDisplay);
         }
     }
@@ -83,18 +99,20 @@ public class SkillManager {
      * @param amount the amount of XP you want to add
      */
     public void addExperience(final SkyblockPlayer player, final Skill skill, int amount) {
-        if (skill.getLucky()) { // if the player got lucky, double the XP ;)
-            amount *= 2;
+        if (skill.getLevel() < skill.getLevelCap()) { // if the skill exceeded the max level, stop leveling up/adding XP
+            if (skill.getLucky()) { // if the player got lucky, double the XP ;)
+                amount *= 2;
+            }
+            if (skill.getCurrentExp() + amount >= skill.getExperienceNextLevel()) { // check if they will level up
+                skill.levelUp(); // then level them up and save it to the database
+                skill.setCurrentExp(0);
+                Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+                    plugin.getSqLiteManager().saveSkillData(player.getUuid(), skill, skill.getLevel() + " " + skill.getCurrentExp() + " " + skill.getExperienceNextLevel() + " " + skill.getLevelCap());
+                });
+                player.sendMessage("&aCongrats! Your &b" + skill.getName() + "&a has leveled up and is now level &c" + skill.getLevel());
+            }
+            skill.addExperience(amount); // add the actual XP to the skill
         }
-        if (skill.getCurrentExp() + amount >= skill.getExperienceNextLevel()) { // check if they will level up
-            skill.levelUp(); // then level them up and save it to the database
-            skill.setCurrentExp(0);
-            Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-                plugin.getSqLiteManager().saveSkillData(player.getUuid(), skill, skill.getLevel() + " " + skill.getCurrentExp() + " " + skill.getExperienceNextLevel() + " " + skill.getLevelCap());
-            });
-            player.sendMessage("&aCongrats! Your &b" + skill.getName() + "&a has leveled up and is now level &c" + skill.getLevel());
-        }
-        skill.addExperience(amount); // add the actual XP to the skill
     }
 
     private void addSkills(final Skill... skills) {
@@ -121,6 +139,11 @@ public class SkillManager {
             skillReward.getRewardsMap().put(entityType, reward);
         }
         return skillReward;
+    }
+
+    // get the skill object just by their name
+    public Skill getRawSkillByName(final String name) {
+        return skills.stream().filter(skill -> skill.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
     }
 
 }
