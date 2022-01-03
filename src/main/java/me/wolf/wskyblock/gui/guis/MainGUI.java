@@ -8,6 +8,7 @@ import me.wolf.wskyblock.utils.ItemUtils;
 import me.wolf.wskyblock.utils.Utils;
 import org.bukkit.Material;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class MainGUI extends SkyblockGUI {
                     setItem(slot, ItemUtils.createItem(material, name), player -> new MagicMarketGUI(plugin, owner, plugin.getMagicMarketManager().getMagicMarket(), 1));
                     break;
                 case "auctionhouse":
-                    setItem(slot, ItemUtils.createItem(material, name), player -> new AuctionGUI(owner, plugin.getAuctionManager().getAuctionHouse(), 1, plugin));
+                    setItem(slot, ItemUtils.createItem(material, name), player -> new AuctionGUI(owner, new ArrayList<>(plugin.getAuctionManager().getAuctionHouse().getAuctionItems()), 1, plugin));
                     break;
                 case "skills":
                     setItem(slot, ItemUtils.createItem(material, name), player -> new SkillGUI(plugin, owner));

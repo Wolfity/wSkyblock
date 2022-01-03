@@ -8,6 +8,8 @@ import me.wolf.wskyblock.player.SkyblockPlayer;
 import me.wolf.wskyblock.utils.ItemUtils;
 import org.bukkit.Material;
 
+import java.util.ArrayList;
+
 public class ConfirmAuctionPurchaseGUI extends SkyblockGUI {
 
     public ConfirmAuctionPurchaseGUI(final SkyblockPlayer owner, final AuctionItem item, final SkyblockPlugin plugin) {
@@ -32,7 +34,7 @@ public class ConfirmAuctionPurchaseGUI extends SkyblockGUI {
 
 
         setItem(5, ItemUtils.createItem(Material.RED_STAINED_GLASS_PANE, "&c&lNo, go back!"), player -> {
-            new AuctionGUI(owner, plugin.getAuctionManager().getAuctionHouse(), 1, plugin);
+            new AuctionGUI(owner, new ArrayList<>(plugin.getAuctionManager().getAuctionHouse().getAuctionItems()), 1, plugin);
         });
 
         openSkyblockGUI(owner);

@@ -21,7 +21,7 @@ public class AuctionManageGUI extends SkyblockGUI {
             }
         }
 
-        setItem(53, getBackIcon(), player -> new AuctionGUI(owner, plugin.getAuctionManager().getAuctionHouse(), 1, plugin));
+        setItem(53, getBackIcon(), player -> new AuctionGUI(owner, new ArrayList<>(plugin.getAuctionManager().getAuctionHouse().getAuctionItems()), 1, plugin));
 
         openSkyblockGUI(owner);
     }

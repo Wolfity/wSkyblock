@@ -71,9 +71,9 @@ public class SkyblockPlugin extends JavaPlugin {
         sqLiteManager.disconnect();
 
         // clear all mobs in mob arenas
-        for(final World world : Bukkit.getWorlds()) {
-            for(final Entity entity : world.getEntities()) {
-                if(getMobArenaManager().getMobRewards().keySet().contains(Utils.colorize(entity.getName()))) {
+        for (final World world : Bukkit.getWorlds()) {
+            for (final Entity entity : world.getEntities()) {
+                if (getMobArenaManager().getMobRewards().keySet().contains(Utils.colorize(entity.getName()))) {
                     entity.remove();
                 }
             }
@@ -90,7 +90,8 @@ public class SkyblockPlugin extends JavaPlugin {
                 new AuctionHouseListener(this),
                 new MagicMarketListener(this),
                 new CustomEnchantListeners(this),
-                new MobArenaListener(this)
+                new MobArenaListener(this),
+                new AuctionFilterListener(this)
         ).forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, this));
     }
 

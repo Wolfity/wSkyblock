@@ -15,8 +15,6 @@ import java.util.List;
 
 public final class ItemUtils {
 
-    private static final String[] BYPASS_CLASS = {"CraftMetaBlockState", "CraftMetaItem", "GlowMetaItem"};
-
     private ItemUtils() {
     }
 

@@ -65,7 +65,7 @@ public class CustomEnchantListeners implements Listener {
             event.getPlayer().getInventory().addItem(new ItemStack(event.getBlock().getType()));
             event.setDropItems(false); // cancel the item dropping after breaking
             // give the appropriate reward for mining the block
-            if(minerRewards.getRewardsMap().containsKey(event.getBlock().getType())) {
+            if (minerRewards.getRewardsMap().containsKey(event.getBlock().getType())) {
                 plugin.getSkillManager().addExperience(player, skill, minerRewards.getRewardsMap().get(event.getBlock().getType()));
             }
 

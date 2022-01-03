@@ -2,7 +2,6 @@ package me.wolf.wskyblock.gui.guis.shops;
 
 import me.wolf.wskyblock.SkyblockPlugin;
 import me.wolf.wskyblock.gui.PaginatedMenu;
-import me.wolf.wskyblock.gui.guis.MainGUI;
 import me.wolf.wskyblock.gui.guis.ShopGUI;
 import me.wolf.wskyblock.player.SkyblockPlayer;
 import me.wolf.wskyblock.shops.ShopItem;

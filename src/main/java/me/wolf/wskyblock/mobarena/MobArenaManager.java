@@ -18,15 +18,11 @@ import java.util.*;
 public class MobArenaManager {
 
     private final SkyblockPlugin plugin;
-
+    private final Set<MobArena> mobArenas = new HashSet<>();
+    private final Map<String, Integer> mobRewards = new HashMap<>(); // used in the MobArenaListener to see if a mob with these names was killed
     public MobArenaManager(final SkyblockPlugin plugin) {
         this.plugin = plugin;
     }
-
-
-    private final Set<MobArena> mobArenas = new HashSet<>();
-    private final Map<String, Integer> mobRewards = new HashMap<>(); // used in the MobArenaListener to see if a mob with these names was killed
-
 
     // creating a mob arena entry in the yml file
     public void createMobArena(final String name) {
@@ -39,6 +35,7 @@ public class MobArenaManager {
         cfg.saveConfig();
 
     }
+
     // removing a mob arena
     public void removeMobArena(final String name) {
         final YamlConfig cfg = plugin.getFileManager().getMobArenaConfig();

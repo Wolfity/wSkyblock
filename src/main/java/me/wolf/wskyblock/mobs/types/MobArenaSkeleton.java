@@ -42,17 +42,17 @@ public class MobArenaSkeleton extends EntitySkeleton implements IArenaMob {
         this.craftAttributes.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(damage);
 
 
-        if(!helmet.equalsIgnoreCase("none")) {
-            ((LivingEntity)this.getBukkitEntity()).getEquipment().setHelmet(new ItemStack(Material.valueOf(helmet)));
+        if (!helmet.equalsIgnoreCase("none")) {
+            ((LivingEntity) this.getBukkitEntity()).getEquipment().setHelmet(new ItemStack(Material.valueOf(helmet)));
         }
-        if(!chestplate.equalsIgnoreCase("none")) {
-            ((LivingEntity)this.getBukkitEntity()).getEquipment().setChestplate(new ItemStack(Material.valueOf(chestplate)));
+        if (!chestplate.equalsIgnoreCase("none")) {
+            ((LivingEntity) this.getBukkitEntity()).getEquipment().setChestplate(new ItemStack(Material.valueOf(chestplate)));
         }
-        if(!leggings.equalsIgnoreCase("none")) {
-            ((LivingEntity)this.getBukkitEntity()).getEquipment().setLeggings(new ItemStack(Material.valueOf(leggings)));
+        if (!leggings.equalsIgnoreCase("none")) {
+            ((LivingEntity) this.getBukkitEntity()).getEquipment().setLeggings(new ItemStack(Material.valueOf(leggings)));
         }
-        if(!boots.equalsIgnoreCase("none")) {
-            ((LivingEntity)this.getBukkitEntity()).getEquipment().setLeggings(new ItemStack(Material.valueOf(boots)));
+        if (!boots.equalsIgnoreCase("none")) {
+            ((LivingEntity) this.getBukkitEntity()).getEquipment().setLeggings(new ItemStack(Material.valueOf(boots)));
         }
     }
 }

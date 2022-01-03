@@ -55,7 +55,7 @@ public class SQLiteManager {
                 ps.setString(2, playerName);
                 ps.setString(3, "0 0 " + lumber.getExperienceNextLevel() / lumber.getExpIncreaseMultiplier() + " " + lumber.getLevelCap()); // lumber: level 0 | exp: 0 | exp to next  100 | levelcap 50
                 ps.setString(4, "0 0 " + monsterKiller.getExperienceNextLevel() / monsterKiller.getExpIncreaseMultiplier() + " " + monsterKiller.getLevelCap()); // monsterkiller
-                ps.setString(5, "0 0 " + miner.getExperienceNextLevel() / miner.getExpIncreaseMultiplier()+ " " + miner.getLevelCap()); // miner
+                ps.setString(5, "0 0 " + miner.getExperienceNextLevel() / miner.getExpIncreaseMultiplier() + " " + miner.getLevelCap()); // miner
 
                 ps.executeUpdate();
             } catch (final SQLException e) {

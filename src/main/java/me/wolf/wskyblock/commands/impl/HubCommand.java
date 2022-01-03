@@ -26,10 +26,10 @@ public class HubCommand extends BaseCommand {
                 plugin.getConfig().getDouble("spawn.y"),
                 plugin.getConfig().getDouble("spawn.z"));
 
-        if(hub.getWorld() == null) {
+        if (hub.getWorld() == null) {
             tell("&cNo Hub has been set yet!");
         } else {
-            ((Player)sender).teleport(hub);
+            ((Player) sender).teleport(hub);
             tell("&aTeleported to the hub!");
         }
 

@@ -19,7 +19,7 @@ public class SetHubCommand extends BaseCommand {
 
     @Override
     protected void run(CommandSender sender, String[] args) {
-        if(isAdmin()) {
+        if (isAdmin()) {
             final Player player = (Player) sender;
             plugin.getConfig().createSection("spawn");
             plugin.getConfig().set("spawn.world", player.getLocation().getWorld().getName());

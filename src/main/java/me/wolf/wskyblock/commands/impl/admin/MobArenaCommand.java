@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MobArenaCommand extends BaseCommand {
-    private final SkyblockPlugin plugin;
     final List<Location> bounds = new ArrayList<>();
+    private final SkyblockPlugin plugin;
 
     public MobArenaCommand(final SkyblockPlugin plugin) {
         super("mobarena");

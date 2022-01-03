@@ -11,6 +11,7 @@ import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 public class AuctionHouseCommand extends BaseCommand {
@@ -28,7 +29,7 @@ public class AuctionHouseCommand extends BaseCommand {
         final Player player = (Player) sender;
         final SkyblockPlayer skyblockPlayer = plugin.getPlayerManager().getSkyblockPlayer(player.getUniqueId());
         if (args.length == 0) {
-            new AuctionGUI(skyblockPlayer, plugin.getAuctionManager().getAuctionHouse(), 1, plugin);
+            new AuctionGUI(skyblockPlayer, new ArrayList<>(plugin.getAuctionManager().getAuctionHouse().getAuctionItems()), 1, plugin);
         }
         // ah <price>
         if (args.length == 1) {

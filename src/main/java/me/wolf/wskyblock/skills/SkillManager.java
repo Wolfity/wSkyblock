@@ -94,8 +94,9 @@ public class SkillManager {
 
     /**
      * Adding experience to a skill
+     *
      * @param player the player you give the experience to
-     * @param skill the skill you want to increase the experience of
+     * @param skill  the skill you want to increase the experience of
      * @param amount the amount of XP you want to add
      */
     public void addExperience(final SkyblockPlayer player, final Skill skill, int amount) {

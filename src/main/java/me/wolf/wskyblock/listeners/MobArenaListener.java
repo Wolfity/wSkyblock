@@ -19,7 +19,7 @@ public class MobArenaListener implements Listener {
 
     @EventHandler
     public void onMobKill(final EntityDeathEvent event) {
-        if(event.getEntity().getKiller() == null) return;
+        if (event.getEntity().getKiller() == null) return;
 
         final SkyblockPlayer killer = plugin.getPlayerManager().getSkyblockPlayer(event.getEntity().getKiller().getUniqueId());
         final String name = event.getEntity().getName();

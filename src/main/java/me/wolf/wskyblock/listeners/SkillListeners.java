@@ -86,7 +86,8 @@ public class SkillListeners implements Listener {
 
     @EventHandler
     public void onMonsterDamage(EntityDamageByEntityEvent event) {
-        if (!(event.getEntity() instanceof Monster)) return; // checking if the entity that took damage isn't a monster and returning
+        if (!(event.getEntity() instanceof Monster))
+            return; // checking if the entity that took damage isn't a monster and returning
         if (!(event.getDamager() instanceof Player)) return; // checking if the damager isn't a player and returning
 
         final SkyblockPlayer player = plugin.getPlayerManager().getSkyblockPlayer(event.getDamager().getUniqueId());

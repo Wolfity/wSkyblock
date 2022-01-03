@@ -2,11 +2,13 @@ package me.wolf.wskyblock.auctionhouse;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
+import scala.Int;
 
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.UUID;
 
-public class AuctionItem {
+public class AuctionItem implements Comparable<AuctionItem> {
 
     private final OfflinePlayer seller;
     private final int price;
@@ -54,6 +56,11 @@ public class AuctionItem {
     @Override
     public int hashCode() {
         return Objects.hash(itemID);
+    }
+
+    @Override
+    public int compareTo(AuctionItem o) {
+        return Integer.compare(price, o.getPrice());
     }
 }
 
