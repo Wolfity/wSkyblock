@@ -44,6 +44,8 @@ These items are saved in a database and loaded up on the server's start.
 You can always cancel your auctions by going to the auction manager menu, 
 where you can click your auction and cancel it. You will then get your item back!
 
+The auction House also has the option to filter items. The currently supported filters
+are, filtering from expensive to cheap, from cheap to expensive, and by text.
 
 ### **Shops**
 Default shops are also provided! There are currently six shops.
