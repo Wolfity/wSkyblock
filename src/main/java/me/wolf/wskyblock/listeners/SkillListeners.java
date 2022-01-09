@@ -7,7 +7,6 @@ import me.wolf.wskyblock.skills.SkillReward;
 import me.wolf.wskyblock.skills.skilltypes.LumberJack;
 import me.wolf.wskyblock.skills.skilltypes.Miner;
 import me.wolf.wskyblock.skills.skilltypes.MonsterKiller;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Monster;
@@ -76,10 +75,9 @@ public class SkillListeners implements Listener {
             if (monsterkiller.getLucky()) {
                 final int random = new Random().nextInt(100);
                 player.sendMessage("&aYou got lucky and received " + random + " coins!");
-                Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-                    plugin.getSqLiteManager().setCoins(player.getUuid(), player.getCoins() + random);
-                    plugin.getSqLiteManager().saveData(player.getUuid());
-                });
+                player.addCoins(random);
+                plugin.getSkyblockScoreboard().skyblockScoreboard(player);
+
             }
         }
     }

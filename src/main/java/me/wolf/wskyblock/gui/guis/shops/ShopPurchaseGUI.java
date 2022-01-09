@@ -3,6 +3,7 @@ package me.wolf.wskyblock.gui.guis.shops;
 import me.wolf.wskyblock.SkyblockPlugin;
 import me.wolf.wskyblock.gui.SkyblockGUI;
 import me.wolf.wskyblock.player.SkyblockPlayer;
+import me.wolf.wskyblock.scoreboards.SkyblockScoreboard;
 import me.wolf.wskyblock.shops.ShopItem;
 import me.wolf.wskyblock.shops.SkyblockShop;
 import me.wolf.wskyblock.utils.ItemUtils;
@@ -36,7 +37,7 @@ public class ShopPurchaseGUI extends SkyblockGUI {
 
         setItem(15, ItemUtils.createItem(Material.DIAMOND_SWORD, "&aConfirm Purchase"), player -> {
             if (canAfford(item.getPrice(), owner)) {
-                processTransaction(selection, item.getPrice(), owner, item.getMaterial());
+                processTransaction(selection, item.getPrice(), owner, item.getMaterial(), plugin.getSkyblockScoreboard());
                 this.selection = 1;
                 player.closeInventory();
             } else owner.sendMessage("&cYou can not afford this!");
@@ -66,10 +67,10 @@ public class ShopPurchaseGUI extends SkyblockGUI {
         return player.getCoins() >= price;
     }
 
-    private void processTransaction(final int selection, final double price, final SkyblockPlayer player, final Material item) {
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> plugin.getSqLiteManager().setCoins(player.getUuid(), player.getCoins() - (int) price));
+    private void processTransaction(final int selection, final double price, final SkyblockPlayer player, final Material item, final SkyblockScoreboard sb) {
         player.removeCoins(selection * (int) price);
         player.sendMessage("&aSuccessfully purchased &2" + selection + " " + item.name().toLowerCase() + " &afor &2" + ((int) price * selection) + "&a coins");
         player.getInventory().addItem(new ItemStack(item, selection));
+        sb.skyblockScoreboard(player);
     }
 }

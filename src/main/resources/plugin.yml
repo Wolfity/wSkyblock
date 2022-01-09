@@ -5,4 +5,4 @@ description: ${project.description}
 author: ${project.author}
 api-version: 1.13
 
-depends: [WorldEdit]
+depend: [WorldEdit]

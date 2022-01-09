@@ -11,12 +11,12 @@ import java.util.List;
 
 public class MagicMarketGUI extends PaginatedMenu {
 
-    public MagicMarketGUI(final SkyblockPlugin plugin, final SkyblockPlayer owner, final me.wolf.wskyblock.magicmarket.MagicMarket blackMarket, final int page) {
-        super(54, blackMarket.getName() + " - " + page, owner);
+    public MagicMarketGUI(final SkyblockPlugin plugin, final SkyblockPlayer owner, final me.wolf.wskyblock.magicmarket.MagicMarket magicMarket, final int page) {
+        super(54, magicMarket.getName() + " - " + page, owner);
 
         addMenuBorder(plugin, owner);
 
-        final List<SBEnchantmentItem> sbEnchantmentItems = new ArrayList<>(blackMarket.getEnchantmentItems());
+        final List<SBEnchantmentItem> sbEnchantmentItems = new ArrayList<>(magicMarket.getEnchantmentItems());
         final List<ItemStack> stacks = new ArrayList<>();
         addMenuBorder(plugin, owner);
         for (SBEnchantmentItem sbEnchantmentItem : sbEnchantmentItems) {

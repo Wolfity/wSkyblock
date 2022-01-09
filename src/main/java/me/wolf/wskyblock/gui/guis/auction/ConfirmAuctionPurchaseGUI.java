@@ -17,7 +17,7 @@ public class ConfirmAuctionPurchaseGUI extends SkyblockGUI {
 
         setItem(3, ItemUtils.createItem(Material.GREEN_STAINED_GLASS_PANE, "&a&lConfirm"), player -> {
             if (plugin.getAuctionManager().getAuctionHouse().getAuctionItems().contains(item)) { // checking if someone else hasnt bought the item in meantime
-                plugin.getAuctionManager().processAuctionTransaction(owner, item.getSeller(), item);
+                plugin.getAuctionManager().processAuctionTransaction(owner, item.getSeller(), item, plugin.getSkyblockScoreboard());
                 owner.sendMessage("&a&lTransaction successfull! Enjoy your purchase :)");
                 owner.getBukkitPlayer().closeInventory();
 

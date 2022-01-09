@@ -2,6 +2,7 @@ package me.wolf.wskyblock.auctionhouse;
 
 import me.wolf.wskyblock.SkyblockPlugin;
 import me.wolf.wskyblock.player.SkyblockPlayer;
+import me.wolf.wskyblock.scoreboards.SkyblockScoreboard;
 import me.wolf.wskyblock.sql.SQLiteManager;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -42,7 +43,7 @@ public class AuctionManager {
     }
 
     // process a transaction of an item
-    public void processAuctionTransaction(final SkyblockPlayer buyer, final OfflinePlayer seller, final AuctionItem auctionItem) {
+    public void processAuctionTransaction(final SkyblockPlayer buyer, final OfflinePlayer seller, final AuctionItem auctionItem, final SkyblockScoreboard sb) {
         final SQLiteManager sqLiteManager = plugin.getSqLiteManager();
         if (plugin.getPlayerManager().getSkyblockPlayer(seller.getUniqueId()) == null) { // seller is offline
             Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
@@ -54,15 +55,15 @@ public class AuctionManager {
 
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> { // update the buyer's inventory and take the buyer's coins away
             buyer.getInventory().addItem(sqLiteManager.getRawAuctionItemByID(auctionItem.getItemID()));
-            sqLiteManager.setCoins(buyer.getUuid(), buyer.getCoins() - auctionItem.getPrice());
-            sqLiteManager.setCoins(seller.getUniqueId(), sqLiteManager.getCoins(seller.getUniqueId()) + auctionItem.getPrice()); // update the seller coins
-            if (sbSeller != null) {
-                sqLiteManager.saveData(seller.getUniqueId()); // if its not null (player is online, update their object, else no need to)
-            }
+            sbSeller.setCoins(sbSeller.getCoins() + auctionItem.getPrice());
+            buyer.setCoins(buyer.getCoins() - auctionItem.getPrice());
+            // update the seller coins
+            sqLiteManager.saveData(seller.getUniqueId()); // if its not null (player is online, update their object, else no need to)
             sqLiteManager.saveData(buyer.getUuid());
         });
 
-
+        sb.skyblockScoreboard(buyer);
+        sb.skyblockScoreboard(sbSeller);
         removeAuctionItem(auctionItem);
 
     }

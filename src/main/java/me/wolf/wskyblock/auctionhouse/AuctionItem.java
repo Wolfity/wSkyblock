@@ -2,9 +2,7 @@ package me.wolf.wskyblock.auctionhouse;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
-import scala.Int;
 
-import java.util.Comparator;
 import java.util.Objects;
 import java.util.UUID;
 

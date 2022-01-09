@@ -3,7 +3,7 @@ package me.wolf.wskyblock.sql;
 public final class Query {
 
     public static final String CREATE_ISLAND_TABLE = "CREATE TABLE IF NOT EXISTS " +
-            "islands (uuid VARCHAR(64) " +
+            "islands (uuid VARCHAR(64) PRIMARY KEY " +
             "NOT NULL, " +
             "name VARCHAR(16), " +
             "spawn VARCHAR(16), " +
@@ -11,7 +11,7 @@ public final class Query {
             "coins int)";
 
     public static final String CREATE_SKILLS_TABLE = "CREATE TABLE IF NOT EXISTS " +
-            "skills (uuid VARCHAR(64) " +
+            "skills (uuid VARCHAR(64) PRIMARY KEY " +
             "NOT NULL, " +
             "name VARCHAR(16), " +
             "lumberjack VARCHAR(16), " +
@@ -19,7 +19,7 @@ public final class Query {
             "miner VARCHAR(16))";
 
     public static final String CREATE_AUCTION_TABLE = "CREATE TABLE IF NOT EXISTS " +
-            "auction (uuid VARCHAR(64) " +
+            "auction (uuid VARCHAR(64) PRIMARY KEY " +
             "NOT NULL, " +
             "name VARCHAR(16), " +
             "itemid VARCHAR(16), " +
@@ -27,7 +27,7 @@ public final class Query {
             "price int)";
 
     public static final String CREATE_WARPS_TABLE = "CREATE TABLE IF NOT EXISTS " +
-            "warps (uuid VARCHAR(64) " +
+            "warps (uuid VARCHAR(64) PRIMARY KEY " +
             "NOT NULL, " +
             "name, " +
             "world VARCHAR(8), " +

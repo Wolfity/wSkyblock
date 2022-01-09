@@ -6,6 +6,7 @@ import me.wolf.wskyblock.enchants.SBEnchantmentItem;
 import me.wolf.wskyblock.gui.SkyblockGUI;
 import me.wolf.wskyblock.gui.guis.MagicMarketGUI;
 import me.wolf.wskyblock.player.SkyblockPlayer;
+import me.wolf.wskyblock.scoreboards.SkyblockScoreboard;
 import me.wolf.wskyblock.utils.ItemUtils;
 import me.wolf.wskyblock.utils.Utils;
 import org.bukkit.Bukkit;
@@ -23,22 +24,19 @@ public class MagicMarketConfirmPurchase extends SkyblockGUI {
         super(9, Utils.colorize("&aConfirm"), owner);
         this.plugin = plugin;
 
-        setItem(3, ItemUtils.createItem(Material.GREEN_STAINED_GLASS_PANE, "&aConfirm Purchase"), player -> processTransaction(owner, item));
+        setItem(3, ItemUtils.createItem(Material.GREEN_STAINED_GLASS_PANE, "&aConfirm Purchase"), player -> processTransaction(owner, item, plugin.getSkyblockScoreboard()));
         setItem(4, item.getItemStack());
         setItem(5, ItemUtils.createItem(Material.RED_STAINED_GLASS_PANE, "&cNo, Go Back!"), player -> new MagicMarketGUI(plugin, owner, plugin.getMagicMarketManager().getMagicMarket(), 1));
         openSkyblockGUI(owner);
     }
 
-    private void processTransaction(final SkyblockPlayer player, final SBEnchantmentItem item) {
+    private void processTransaction(final SkyblockPlayer player, final SBEnchantmentItem item, final SkyblockScoreboard sb) {
 
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> plugin.getSqLiteManager().setCoins(player.getUuid(), player.getCoins() - item.getPrice()));
         player.removeCoins(item.getPrice());
         player.sendMessage("&aSuccessfully purchased &2" + item.getDisplay() + " &afor &2" + item.getPrice() + "&a coins");
-
-
         player.getInventory().addItem(item(item));
-
         player.getBukkitPlayer().closeInventory();
+        sb.skyblockScoreboard(player);
 
     }
 

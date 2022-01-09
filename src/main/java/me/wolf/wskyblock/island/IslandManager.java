@@ -40,14 +40,13 @@ public class IslandManager {
     public void createIsland(final SkyblockPlayer owner) {
         final Island island = new Island(owner);
         island.setSpawn(new Location(new WorldCreator(owner.getName()).generator(new EmptyChunkGenerator()).createWorld(), 0, 100, 0));
+        island.setAcceptsVisitors(true);
+
         islands.add(island);
 
+
         // saving all the island data to the database
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-            plugin.getSqLiteManager().setSpawn(owner.getUuid(), spawnToString(island.getSpawn()));
-            plugin.getSqLiteManager().setAcceptVisitors(owner.getUuid(), island.acceptsVisitors());
-            plugin.getSqLiteManager().saveData(owner.getUuid());
-        });
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> plugin.getSqLiteManager().saveData(owner.getUuid()));
 
         try {
             createSchem(island.getSpawn());

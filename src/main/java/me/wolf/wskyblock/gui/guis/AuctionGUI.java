@@ -1,7 +1,6 @@
 package me.wolf.wskyblock.gui.guis;
 
 import me.wolf.wskyblock.SkyblockPlugin;
-import me.wolf.wskyblock.auctionhouse.AuctionHouse;
 import me.wolf.wskyblock.auctionhouse.AuctionItem;
 import me.wolf.wskyblock.gui.PaginatedMenu;
 import me.wolf.wskyblock.gui.guis.auction.AuctionFilterGUI;
@@ -17,9 +16,8 @@ import java.util.List;
 
 public class AuctionGUI extends PaginatedMenu {
 
-    public AuctionGUI(final SkyblockPlayer owner, final List<AuctionItem> auctionItems ,  final int page, final SkyblockPlugin plugin) {
+    public AuctionGUI(final SkyblockPlayer owner, final List<AuctionItem> auctionItems, final int page, final SkyblockPlugin plugin) {
         super(54, "&aAuction House" + " - " + page, owner);
-
 
 
         final List<ItemStack> stacks = new ArrayList<>();

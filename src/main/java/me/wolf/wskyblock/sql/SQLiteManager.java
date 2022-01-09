@@ -166,7 +166,7 @@ public class SQLiteManager {
         return false;
     }
 
-    public void setSkillPlayerName(final UUID uuid, final String playerName) {
+    private void setSkillPlayerName(final UUID uuid, final String playerName) {
         if (!doesSkillPlayerExist(uuid)) return;
 
         try (final Connection connection = hikari.getConnection();
@@ -183,7 +183,7 @@ public class SQLiteManager {
     }
 
 
-    public void setPlayerName(final UUID uuid, final String playerName) { // setting the playername in the db
+    private void setPlayerName(final UUID uuid, final String playerName) { // setting the playername in the db
         if (!doesPlayerExist(uuid)) return;
 
         try (final Connection connection = hikari.getConnection();
@@ -215,7 +215,7 @@ public class SQLiteManager {
         }
     }
 
-    public void setSpawn(final UUID uuid, final String spawnLoc) {
+    private void setSpawn(final UUID uuid, final String spawnLoc) {
         try (final Connection connection = hikari.getConnection();
              final PreparedStatement ps = connection.prepareStatement(Query.SET_SPAWN)) {
 
@@ -229,7 +229,7 @@ public class SQLiteManager {
         }
     }
 
-    public String getSpawn(final UUID uuid) {
+    private String getSpawn(final UUID uuid) {
         try (final Connection connection = hikari.getConnection();
              final PreparedStatement ps = connection.prepareStatement(Query.GET_PLAYERDATA)) {
 
@@ -245,7 +245,7 @@ public class SQLiteManager {
         return null;
     }
 
-    public void setAcceptVisitors(final UUID uuid, final boolean accepts) {
+    private void setAcceptVisitors(final UUID uuid, final boolean accepts) {
         try (final Connection connection = hikari.getConnection();
              final PreparedStatement ps = connection.prepareStatement(Query.SET_VISITORS)) {
 
@@ -259,7 +259,7 @@ public class SQLiteManager {
         }
     }
 
-    public boolean getAcceptsVisitors(final UUID uuid) {
+    private boolean getAcceptsVisitors(final UUID uuid) {
         try (final Connection connection = hikari.getConnection();
              final PreparedStatement ps = connection.prepareStatement(Query.GET_PLAYERDATA)) {
 
@@ -306,7 +306,7 @@ public class SQLiteManager {
 
 
     // Skills below
-    public void setLumberjack(final UUID uuid, final String lumber) { // lvl xp expTillNext
+    private void setLumberjack(final UUID uuid, final String lumber) { // lvl xp expTillNext
         try (final Connection connection = hikari.getConnection();
              final PreparedStatement ps = connection.prepareStatement(Query.SET_LUMBERJACK)) {
 
@@ -320,7 +320,7 @@ public class SQLiteManager {
         }
     }
 
-    public String getLumberjack(final UUID uuid) {
+    private String getLumberjack(final UUID uuid) {
         try (final Connection connection = hikari.getConnection();
              final PreparedStatement ps = connection.prepareStatement(Query.GET_SKILLDATA)) {
 
@@ -336,7 +336,7 @@ public class SQLiteManager {
         return null;
     }
 
-    public void setMonsterKiller(final UUID uuid, final String monsterKiller) { // lvl xp expTillNext
+    private void setMonsterKiller(final UUID uuid, final String monsterKiller) { // lvl xp expTillNext
         try (final Connection connection = hikari.getConnection();
              final PreparedStatement ps = connection.prepareStatement(Query.SET_MONSTERKILLER)) {
 
@@ -350,7 +350,7 @@ public class SQLiteManager {
         }
     }
 
-    public String getMonsterKiller(final UUID uuid) {
+    private String getMonsterKiller(final UUID uuid) {
         try (final Connection connection = hikari.getConnection();
              final PreparedStatement ps = connection.prepareStatement(Query.GET_SKILLDATA)) {
 
@@ -366,7 +366,7 @@ public class SQLiteManager {
         return null;
     }
 
-    public void setMiner(final UUID uuid, final String miner) { // lvl xp expTillNext
+    private void setMiner(final UUID uuid, final String miner) { // lvl xp expTillNext
         try (final Connection connection = hikari.getConnection();
              final PreparedStatement ps = connection.prepareStatement(Query.SET_MINER)) {
 
@@ -380,7 +380,7 @@ public class SQLiteManager {
         }
     }
 
-    public String getMiner(final UUID uuid) {
+    private String getMiner(final UUID uuid) {
         try (final Connection connection = hikari.getConnection();
              final PreparedStatement ps = connection.prepareStatement(Query.GET_SKILLDATA)) {
 

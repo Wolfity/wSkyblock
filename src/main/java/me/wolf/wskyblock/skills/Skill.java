@@ -82,7 +82,6 @@ public abstract class Skill implements Comparable<Skill> {
 
     public void addExperience(int currentExp) {
         this.currentExp += currentExp;
-
     }
 
     public double getExpIncreaseMultiplier() {
