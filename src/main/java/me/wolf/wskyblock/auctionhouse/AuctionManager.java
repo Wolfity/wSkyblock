@@ -52,18 +52,27 @@ public class AuctionManager {
         }
 
         final SkyblockPlayer sbSeller = plugin.getPlayerManager().getSkyblockPlayer(seller.getUniqueId());
-
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> { // update the buyer's inventory and take the buyer's coins away
-            buyer.getInventory().addItem(sqLiteManager.getRawAuctionItemByID(auctionItem.getItemID()));
-            sbSeller.setCoins(sbSeller.getCoins() + auctionItem.getPrice());
-            buyer.setCoins(buyer.getCoins() - auctionItem.getPrice());
-            // update the seller coins
-            sqLiteManager.saveData(seller.getUniqueId()); // if its not null (player is online, update their object, else no need to)
-            sqLiteManager.saveData(buyer.getUuid());
+
+            if (auctionItem == null || sqLiteManager.getRawAuctionItemByID(auctionItem.getItemID()) == null) {
+                buyer.sendMessage("&cSomething went wrong!");
+                removeAuctionItem(auctionItem);
+            } else {
+                buyer.getInventory().addItem(sqLiteManager.getRawAuctionItemByID(auctionItem.getItemID()));
+                if (sbSeller != null) {
+                    sbSeller.addCoins(auctionItem.getPrice());
+                }
+                buyer.removeCoins(auctionItem.getPrice());
+                // update the seller coins
+            }
+
+
         });
 
         sb.skyblockScoreboard(buyer);
-        sb.skyblockScoreboard(sbSeller);
+        if (sbSeller != null) {
+            sb.skyblockScoreboard(sbSeller);
+        }
         removeAuctionItem(auctionItem);
 
     }

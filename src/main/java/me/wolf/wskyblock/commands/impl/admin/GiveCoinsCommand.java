@@ -34,7 +34,7 @@ public class GiveCoinsCommand extends BaseCommand {
                     }
 
                     int finalAmount = amount;
-                    Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> target.setCoins(target.getCoins() + finalAmount));
+                    target.setCoins(target.getCoins() + finalAmount);
                     player.sendMessage("&aSuccessfully given &2" + amount + " &acoins to &2" + target.getName());
 
                 } else player.sendMessage("&cInvalid Player");

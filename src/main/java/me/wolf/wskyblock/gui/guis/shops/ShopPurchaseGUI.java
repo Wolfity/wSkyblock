@@ -7,7 +7,6 @@ import me.wolf.wskyblock.scoreboards.SkyblockScoreboard;
 import me.wolf.wskyblock.shops.ShopItem;
 import me.wolf.wskyblock.shops.SkyblockShop;
 import me.wolf.wskyblock.utils.ItemUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 

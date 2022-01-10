@@ -33,7 +33,7 @@ public class RemoveCoinsCommand extends BaseCommand {
                     }
 
                     int finalAmount = amount;
-                    Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> target.setCoins(target.getCoins() - finalAmount));
+                    target.setCoins(target.getCoins() - finalAmount);
                     player.sendMessage("&aSuccessfully taken &2" + amount + " &acoins of &2" + target.getName());
 
                 } else player.sendMessage("&cInvalid Player");

@@ -16,7 +16,9 @@ import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.sql.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 public class SQLiteManager {
 
@@ -406,18 +408,15 @@ public class SQLiteManager {
         final Island island = plugin.getIslandManager().getIslandByOwner(owner);
 
         this.setSpawn(uuid, this.getSpawn(uuid));
-        this.setAcceptVisitors(owner.getUuid(), this.getAcceptsVisitors(uuid));
-        this.setCoins(uuid, this.getCoins(uuid));
+        this.setAcceptVisitors(owner.getUuid(), island.acceptsVisitors());
+        this.setCoins(uuid, owner.getCoins());
         final String[] stringLoc = this.getSpawn(uuid).split(" ");
         final Location spawn = new Location(Bukkit.getWorld(stringLoc[0]),
                 Double.parseDouble(stringLoc[1]),
                 Double.parseDouble(stringLoc[2]),
                 Double.parseDouble(stringLoc[3]));
 
-        final List<Warp> warps = new ArrayList<>();
-
         island.setSpawn(spawn);
-        island.setWarps(warps);
         island.setAcceptsVisitors(this.getAcceptsVisitors(owner.getUuid()));
         owner.setCoins(this.getCoins(owner.getUuid()));
 

@@ -9,7 +9,6 @@ import me.wolf.wskyblock.player.SkyblockPlayer;
 import me.wolf.wskyblock.scoreboards.SkyblockScoreboard;
 import me.wolf.wskyblock.utils.ItemUtils;
 import me.wolf.wskyblock.utils.Utils;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;

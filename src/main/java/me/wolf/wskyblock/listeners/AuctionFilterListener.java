@@ -4,6 +4,7 @@ import me.wolf.wskyblock.SkyblockPlugin;
 import me.wolf.wskyblock.auctionhouse.AuctionItem;
 import me.wolf.wskyblock.gui.guis.AuctionGUI;
 import me.wolf.wskyblock.player.SkyblockPlayer;
+import me.wolf.wskyblock.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -30,11 +31,11 @@ public class AuctionFilterListener implements Listener {
         final String filter = event.getMessage().toUpperCase();
         final List<AuctionItem> allItems = new ArrayList<>(plugin.getAuctionManager().getAuctionHouse().getAuctionItems());
 
-        final List<AuctionItem> filteredList = allItems // checking whether there are items that contain the filter in their display name/material
+
+        final List<AuctionItem> filteredList = allItems
                 .stream()
-                .filter(auctionItem ->
-                        ChatColor.stripColor(auctionItem.getItemStack().getItemMeta().getDisplayName()).contains(event.getMessage()) ||
-                                auctionItem.getItemStack().getType().name().contains(filter))
+                .filter(auctionItem -> Utils.containsIgnoreCase(ChatColor.stripColor(auctionItem.getItemStack().getItemMeta().getDisplayName()),
+                        filter) || Utils.containsIgnoreCase(auctionItem.getItemStack().getType().name(), filter))
                 .collect(Collectors.toList());
 
 
