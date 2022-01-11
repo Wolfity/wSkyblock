@@ -148,8 +148,6 @@ public class SkyblockPlugin extends JavaPlugin {
         magicMarketManager.setup(fileManager.getMagicMarket());
         auctionManager.loadAuctionedItems();
         shopManager.registerShops();
-        skillManager.loadSkills();
-        skillManager.cacheRewards();
 
     }
 

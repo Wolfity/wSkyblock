@@ -9,6 +9,8 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -17,12 +19,13 @@ public class SkyblockPlayer {
 
     private final UUID uuid;
     private int coins;
-    private Set<Skill> skills;
+    private Set<Skill> skills = new HashSet<>();
 
     public SkyblockPlayer(final SkyblockPlugin plugin, final UUID uuid) {
         this.uuid = uuid;
         this.coins = 0;
-        this.skills = plugin.getSkillManager().getSkills();
+        plugin.getSkillManager().createSkills(this);
+
     }
 
     public void sendMessage(final String msg) {

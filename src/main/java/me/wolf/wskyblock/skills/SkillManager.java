@@ -20,14 +20,13 @@ import java.util.stream.Collectors;
 public class SkillManager {
 
     private final SkyblockPlugin plugin;
-    private final Set<Skill> skills = new HashSet<>();
 
     public SkillManager(final SkyblockPlugin plugin) {
         this.plugin = plugin;
     }
 
-    public void loadSkills() {
-        addSkills(new LumberJack(), new MonsterKiller(), new Miner());
+    public void createSkills(final SkyblockPlayer player) {
+       player.setSkills(Set.of(new Miner(), new MonsterKiller(), new LumberJack()));
         final FileManager cfg = plugin.getFileManager();
 
         List<String> description = new ArrayList<>();
@@ -38,7 +37,7 @@ public class SkillManager {
         double multiplier = 0;
 
         // loading in the visuals for every skill
-        for (final Skill skill : skills) {
+        for (final Skill skill : player.getSkills()) {
             if (skill.getName().equalsIgnoreCase("miner")) {
                 maxLevel = cfg.getMinerConfig().getConfig().getInt("max-level");
                 experienceNextLevel = cfg.getMinerConfig().getConfig().getDouble("xp-to-first-level");
@@ -67,21 +66,20 @@ public class SkillManager {
             skill.setExpIncreaseMultiplier(multiplier);
             skill.setExperienceNextLevel(experienceNextLevel);
             skill.setScoreboardDisplay(scoreboardDisplay);
+
         }
+        cacheRewards(player);
+
     }
 
-
-    public Set<Skill> getSkills() {
-        return skills;
-    }
 
     // get the skill by a name, from a specific player (To track per player progress)
     public Skill getSkillByNamePlayer(final SkyblockPlayer player, final String name) {
         return player.getSkills().stream().filter(skill -> skill.getName().equalsIgnoreCase(name)).collect(Collectors.toList()).get(0);
     }
 
-    public void cacheRewards() { // cache all the rewards from every skill
-        for (final Skill skill : skills) {
+    private void cacheRewards(final SkyblockPlayer player) { // cache all the rewards from every skill
+        for (final Skill skill : player.getSkills()) {
             if (skill.getName().equalsIgnoreCase("lumberjack")) {
                 ((LumberJack) skill).setSkillRewards(getLoadedMaterialRewards(plugin.getFileManager().getLumberjackConfig()));
             } else if (skill.getName().equalsIgnoreCase("miner")) {
@@ -108,16 +106,12 @@ public class SkillManager {
                 skill.levelUp(); // then level them up and save it to the database
                 skill.setCurrentExp(0);
                 Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-                    plugin.getSqLiteManager().saveSkillData(player.getUuid(), skill, skill.getLevel() + " " + skill.getCurrentExp() + " " + skill.getExperienceNextLevel() + " " + skill.getLevelCap());
+                    plugin.getSqLiteManager().saveSkillData(player.getUuid(), skill, skill.toString());
                 });
                 player.sendMessage("&aCongrats! Your &b" + skill.getName() + "&a has leveled up and is now level &c" + skill.getLevel());
             }
             skill.addExperience(amount); // add the actual XP to the skill
         }
-    }
-
-    private void addSkills(final Skill... skills) {
-        this.skills.addAll(Arrays.asList(skills));
     }
 
     // for skills that need to break blocks
@@ -144,6 +138,7 @@ public class SkillManager {
 
     // get the skill object just by their name
     public Skill getRawSkillByName(final String name) {
+        final List<Skill> skills = List.of(new LumberJack(), new Miner(), new MonsterKiller());
         return skills.stream().filter(skill -> skill.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
     }
 

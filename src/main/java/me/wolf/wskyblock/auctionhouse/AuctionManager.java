@@ -54,7 +54,7 @@ public class AuctionManager {
         final SkyblockPlayer sbSeller = plugin.getPlayerManager().getSkyblockPlayer(seller.getUniqueId());
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> { // update the buyer's inventory and take the buyer's coins away
 
-            if (auctionItem == null || sqLiteManager.getRawAuctionItemByID(auctionItem.getItemID()) == null) {
+            if (sqLiteManager.getRawAuctionItemByID(auctionItem.getItemID()) == null) {
                 buyer.sendMessage("&cSomething went wrong!");
                 removeAuctionItem(auctionItem);
             } else {

@@ -51,7 +51,7 @@ public class JoinQuitListener implements Listener {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             plugin.getSqLiteManager().saveData(event.getPlayer().getUniqueId());
             for (final Skill skill : player.getSkills()) {
-                plugin.getSqLiteManager().saveSkillData(player.getUuid(), skill, skill.getLevel() + " " + skill.getCurrentExp() + " " + skill.getExperienceNextLevel() + " " + skill.getLevelCap());
+                plugin.getSqLiteManager().saveSkillData(player.getUuid(), skill, skill.toString());
             }
         });
         event.getPlayer().setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());

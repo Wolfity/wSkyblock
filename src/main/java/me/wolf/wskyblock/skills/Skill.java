@@ -108,4 +108,10 @@ public abstract class Skill implements Comparable<Skill> {
     public int compareTo(Skill o) {
         return name.compareTo(o.getName());
     }
+
+    @Override
+    public String toString() {
+        return level + " " + currentExp + " " + experienceNextLevel + " " + levelCap;
+    }
+
 }
