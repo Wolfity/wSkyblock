@@ -158,7 +158,7 @@ You can craft it this way.
 ``/hub`` - Teleports you to the hub.\
 
 ### **Admin Commands** 
-(requires the permission sb.admin)
+(requires the permission sb.admin)\
 ``/sethub`` - Sets the Hub Location.\
 ``/givecoins <player> <amount>`` - Gives the specified player an amount of coins.\
 ``/removecoins <player> <amount>`` - Removes the specified amount of coins from the player.\
