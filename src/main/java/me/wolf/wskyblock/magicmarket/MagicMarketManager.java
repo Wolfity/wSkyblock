@@ -20,6 +20,9 @@ public class MagicMarketManager {
         this.plugin = plugin;
     }
 
+    /**
+     * @param yamlConfig the file where we are setting the shop up
+     */
     public void setup(final YamlConfig yamlConfig) {
         magicMarket.setName(yamlConfig.getConfig().getString("name"));
         magicMarket.setIcon(ItemUtils.createItem(Material.valueOf(yamlConfig.getConfig().getString("icon-material"))
@@ -27,7 +30,10 @@ public class MagicMarketManager {
         magicMarket.setEnchantmentItems(loadItems(yamlConfig));
     }
 
-    // loading in all items from the file
+    /**
+     * @param yamlConfig the file we are loading the items from
+     * @return a List of SBEnchantItems
+     */
     private List<SBEnchantmentItem> loadItems(final YamlConfig yamlConfig) {
         final List<SBEnchantmentItem> magicMarketItems = new ArrayList<>();
 

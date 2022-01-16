@@ -25,7 +25,11 @@ public class MobArenaManager {
         this.plugin = plugin;
     }
 
-    // creating a mob arena entry in the yml file
+    /**
+     * @param name the name of the mob arena
+     *             Method for creating a new mob arena
+     *             Also creating the entry in the yml file
+     */
     public void createMobArena(final String name) {
         final MobArena mobArena = new MobArena(name);
         this.mobArenas.add(mobArena);
@@ -37,7 +41,9 @@ public class MobArenaManager {
 
     }
 
-    // removing a mob arena
+    /**
+     * @param name the name of the arena we want to remove
+     */
     public void removeMobArena(final String name) {
         final YamlConfig cfg = plugin.getFileManager().getMobArenaConfig();
         cfg.getConfig().set("mobarenas." + name, null);
@@ -45,7 +51,9 @@ public class MobArenaManager {
         this.mobArenas.remove(getMobArenaByName(name));
     }
 
-    // loading all mob arenas after restart
+    /**
+     * Method for loading all the mob arenas from the yml file
+     */
     public void loadMobArenas() {
         loadMobData(); // loading in the mob by their name & Entity Type
         final YamlConfig cfg = plugin.getFileManager().getMobArenaConfig();
@@ -66,12 +74,21 @@ public class MobArenaManager {
         }
     }
 
-    // getting a mobarena by the name
+    /**
+     * @param name the specific mob arena we are getting by name
+     * @return a MobArena Object
+     * @throws NullPointerException if the MobArena doesn't exist
+     */
     public MobArena getMobArenaByName(final String name) {
         return mobArenas.stream().filter(mobArena -> mobArena.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
     }
 
-    // creating the cuboid from the arena
+    /**
+     * @param mobArena the arena we are setting the cuboid of
+     * @param loc1     bound 1
+     * @param loc2     bound 2
+     *                 Creating a cuboid where the mobs will spawn
+     */
     public void setCuboid(final MobArena mobArena, final Location loc1, final Location loc2) {
         final YamlConfig cfg = plugin.getFileManager().getMobArenaConfig();
         mobArena.setCuboid(new Cuboid(loc1, loc2));
@@ -91,16 +108,21 @@ public class MobArenaManager {
         return new Location(Bukkit.getWorld(split[0]), Double.parseDouble(split[1]), Double.parseDouble(split[2]), Double.parseDouble(split[3]));
     }
 
-    // checking if a specific arena exists
-    public boolean doesMobArenaExist(final String mob) {
-        return this.mobArenas.stream().anyMatch(mobArena -> mobArena.getName().equalsIgnoreCase(mob));
+    /**
+     * @param arena The arena we are checking its existence of
+     * @return true if it exists, false if not
+     */
+    public boolean doesMobArenaExist(final String arena) {
+        return this.mobArenas.stream().anyMatch(mobArena -> mobArena.getName().equalsIgnoreCase(arena));
     }
 
     public Set<MobArena> getMobArenas() {
         return mobArenas;
     }
 
-    // spawn the mobs
+    /**
+     * @param arena the arena we are spawning the mobs in
+     */
     private void startSpawning(final MobArena arena) {
         new BukkitRunnable() {
             @Override
@@ -121,6 +143,10 @@ public class MobArenaManager {
         }.runTaskTimer(plugin, 0L, 20L);
     }
 
+    /**
+     * @param arena the arena the mobs are being spawned in
+     *              Method that handles which mobs are spawned
+     */
     private void spawnMob(final MobArena arena) {
         final World world = ((CraftWorld) arena.getCuboid().getRandomLocation().getWorld()).getHandle();
         final Location location = arena.getCuboid().getRandomLocation();

@@ -19,6 +19,9 @@ public class ShopManager {
         this.fileManager = fileManager;
     }
 
+    /**
+     * loading in all the shop items from the yml file into the shops
+     */
     public void registerShops() { // registering the shops
         addShops(new BlockShop(), new FoodShop(), new MiscShop(), new MobDropsShop(), new ToolShop(), new ValuableShop());
         // load all the items for every shop
@@ -41,7 +44,11 @@ public class ShopManager {
 
     }
 
-    // loop over the config to create ShopItem objects, to then pass to the shop
+    /**
+     * @param skyblockShop the shop we are loading the items from
+     * @param config       the config file we are getting the items from
+     *                     Method that handles the loading in of the items and their prices
+     */
     public void cacheShopItems(final SkyblockShop skyblockShop, final YamlConfig config) {
         // this is the icon that represents the shop itself (valuable shop = diamond for example)
         final ItemStack icon = ItemUtils.createItem(Material.valueOf(config.getConfig().getString("icon")), config.getConfig().getString("name"));
